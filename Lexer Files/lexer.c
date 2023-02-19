@@ -64,7 +64,8 @@ Token GetNextToken()
 {	
 	Token t;
 	t.tp = ERR;
-	c = getc(f);
+	
+	// c = getc(f);
 
 	// Remove whitespace
 	while (isspace(c) || c == '\n')
@@ -79,7 +80,7 @@ Token GetNextToken()
 		fpos_t *pos;
 		fgetpos(f, pos);
 
-		c = getc(f);
+		// c = getc(f);
 
 		// Comment to end of line
 		if (c == '/')
@@ -204,6 +205,7 @@ Token GetNextToken()
 	if (isdigit(c)) {
 		while (isdigit(c)) {
 			lexeme[i++] = c;
+			c = getc(f);
 		}
 		lexeme[i] = '\0';
 		t.tp = INT;
@@ -226,12 +228,14 @@ Token GetNextToken()
 
 	if (isSymbol) {
 		t.tp = SYMBOL;
+		c = getc(f);
 		return t;
 	}
 
 	// Else must be illegal symbol
 	else {
 		t.ec = IllSym;
+		c = getc(f);
 	}
 
 	return t;
