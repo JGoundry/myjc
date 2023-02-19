@@ -64,9 +64,8 @@ Token GetNextToken()
 {	
 	Token t;
 	t.tp = ERR;
-	
-	// c = getc(f);
 
+	// while (c != '\n') {
 	// Remove whitespace
 	while (isspace(c) || c == '\n')
 	{
@@ -74,13 +73,13 @@ Token GetNextToken()
 	}
 
 	// Check for comment, remember EOF comment
-	if (c == '/')
+	while (c == '/')
 	{
 		// Save current pos
 		fpos_t *pos;
 		fgetpos(f, pos);
 
-		// c = getc(f);
+		c = getc(f);
 
 		// Comment to end of line
 		if (c == '/')
@@ -89,12 +88,15 @@ Token GetNextToken()
 			{
 				c = getc(f);
 			}
-			
 			if (c == EOF)
 			{
 				t.tp = ERR;
 				t.ec = EofInStr;
 				return t;
+			}
+			else {
+				// Skip newline
+				c = getc(f);
 			}
 		}
 
@@ -107,15 +109,18 @@ Token GetNextToken()
 			{
 				// API documentation comment
 				c = getc(f);
-
 			}
 			while (1)
 			{
 				if (c == '*')
 				{
 					c = getc(f);
-					if (c == '/')
+					if (c == '/') {
+						c = getc(f);
 						break;
+					}
+					else
+						continue;
 				}
 				else if (c == EOF)
 				{
@@ -131,7 +136,10 @@ Token GetNextToken()
 			// Not a comment, move iterator back
 			c = '/';
 			fsetpos(f, pos);
+			break;
 		}
+		if (c == '\n')
+			c = getc(f);
 	}
 
 	// Check for EOF
@@ -231,6 +239,8 @@ Token GetNextToken()
 		c = getc(f);
 		return t;
 	}
+
+	// }
 
 	// Else must be illegal symbol
 	else {
