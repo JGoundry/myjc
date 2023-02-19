@@ -1,905 +1,884 @@
-<'', 6, 3>
-<'', 6, 3>
-<'', 6, 3>
-<'class', 1, 3>
-<'Ball', 1, 3>
-<'{', 3, 3>
-<'field', 1, 3>
-<'int', 1, 3>
-<'x', 1, 3>
-<',', 3, 3>
-<'y', 1, 3>
-<';', 3, 3>
-<' ', 6, 3>
-<'field', 1, 3>
-<'int', 1, 3>
-<'lengthx', 1, 3>
-<',', 3, 3>
-<'lengthy', 1, 3>
-<';', 3, 3>
-<'', 6, 3>
-<'field', 1, 3>
-<'int', 1, 3>
-<'d', 1, 3>
-<',', 3, 3>
-<'straightD', 1, 3>
-<',', 3, 3>
-<'diagonalD', 1, 3>
-<';', 3, 3>
-<' ', 6, 3>
-<'field', 1, 3>
-<'boolean', 1, 3>
-<'invert', 1, 3>
-<',', 3, 3>
-<'positivex', 1, 3>
-<',', 3, 3>
-<'positivey', 1, 3>
-<';', 3, 3>
-<' ', 6, 3>
-<'field', 1, 3>
-<'int', 1, 3>
-<'leftWall', 1, 3>
-<',', 3, 3>
-<'rightWall', 1, 3>
-<',', 3, 3>
-<'topWall', 1, 3>
-<',', 3, 3>
-<'bottomWall', 1, 3>
-<';', 3, 3>
-<' ', 6, 3>
-<'field', 1, 3>
-<'int', 1, 3>
-<'wall', 1, 3>
-<';', 3, 3>
-<'', 6, 3>
-<'', 6, 3>
-<'constructor', 1, 3>
-<'Ball', 1, 3>
-<'new', 1, 3>
-<'(', 3, 3>
-<'int', 1, 3>
-<'Ax', 1, 3>
-<',', 3, 3>
-<'int', 1, 3>
-<'Ay', 1, 3>
-<',', 3, 3>
-<'int', 1, 3>
-<'AleftWall', 1, 3>
-<',', 3, 3>
-<'int', 1, 3>
-<'ArightWall', 1, 3>
-<',', 3, 3>
-<'int', 1, 3>
-<'AtopWall', 1, 3>
-<',', 3, 3>
-<'int', 1, 3>
-<'AbottomWall', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'x', 1, 3>
-<'=', 3, 3>
-<'Ax', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'y', 1, 3>
-<'=', 3, 3>
-<'Ay', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'leftWall', 1, 3>
-<'=', 3, 3>
-<'AleftWall', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'rightWall', 1, 3>
-<'=', 3, 3>
-<'ArightWall', 1, 3>
-<'-', 3, 3>
-<'6', 2, 3>
-<';', 3, 3>
-<'	', 6, 3>
-<'let', 1, 3>
-<'topWall', 1, 3>
-<'=', 3, 3>
-<'AtopWall', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'bottomWall', 1, 3>
-<'=', 3, 3>
-<'AbottomWall', 1, 3>
-<'-', 3, 3>
-<'6', 2, 3>
-<';', 3, 3>
-<'	', 6, 3>
-<'let', 1, 3>
-<'wall', 1, 3>
-<'=', 3, 3>
-<'0', 2, 3>
-<';', 3, 3>
-<'do', 1, 3>
-<'show', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'return', 1, 3>
-<'this', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'void', 1, 3>
-<'dispose', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'do', 1, 3>
-<'Memory', 1, 3>
-<'.', 3, 3>
-<'deAlloc', 1, 3>
-<'(', 3, 3>
-<'this', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'return', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'void', 1, 3>
-<'show', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'do', 1, 3>
-<'Screen', 1, 3>
-<'.', 3, 3>
-<'setColor', 1, 3>
-<'(', 3, 3>
-<'true', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'do', 1, 3>
-<'draw', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'return', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'void', 1, 3>
-<'hide', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'do', 1, 3>
-<'Screen', 1, 3>
-<'.', 3, 3>
-<'setColor', 1, 3>
-<'(', 3, 3>
-<'false', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'do', 1, 3>
-<'draw', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'return', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'void', 1, 3>
-<'draw', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'do', 1, 3>
-<'Screen', 1, 3>
-<'.', 3, 3>
-<'drawRectangle', 1, 3>
-<'(', 3, 3>
-<'x', 1, 3>
-<',', 3, 3>
-<'y', 1, 3>
-<',', 3, 3>
-<'x', 1, 3>
-<'+', 3, 3>
-<'5', 2, 3>
-<',', 3, 3>
-<'y', 1, 3>
-<'+', 3, 3>
-<'5', 2, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'return', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'int', 1, 3>
-<'getLeft', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'return', 1, 3>
-<'x', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'int', 1, 3>
-<'getRight', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'return', 1, 3>
-<'x', 1, 3>
-<'+', 3, 3>
-<'5', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'void', 1, 3>
-<'setDestination', 1, 3>
-<'(', 3, 3>
-<'int', 1, 3>
-<'destx', 1, 3>
-<',', 3, 3>
-<'int', 1, 3>
-<'desty', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'var', 1, 3>
-<'int', 1, 3>
-<'dx', 1, 3>
-<',', 3, 3>
-<'dy', 1, 3>
-<',', 3, 3>
-<'temp', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'lengthx', 1, 3>
-<'=', 3, 3>
-<'destx', 1, 3>
-<'-', 3, 3>
-<'x', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'lengthy', 1, 3>
-<'=', 3, 3>
-<'desty', 1, 3>
-<'-', 3, 3>
-<'y', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'dx', 1, 3>
-<'=', 3, 3>
-<'Math', 1, 3>
-<'.', 3, 3>
-<'abs', 1, 3>
-<'(', 3, 3>
-<'lengthx', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'dy', 1, 3>
-<'=', 3, 3>
-<'Math', 1, 3>
-<'.', 3, 3>
-<'abs', 1, 3>
-<'(', 3, 3>
-<'lengthy', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'invert', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'dx', 1, 3>
-<'<', 3, 3>
-<'dy', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'invert', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'temp', 1, 3>
-<'=', 3, 3>
-<'dx', 1, 3>
-<';', 3, 3>
-<' ', 6, 3>
-<'let', 1, 3>
-<'dx', 1, 3>
-<'=', 3, 3>
-<'dy', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'dy', 1, 3>
-<'=', 3, 3>
-<'temp', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'positivex', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'y', 1, 3>
-<'<', 3, 3>
-<'desty', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'positivey', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'x', 1, 3>
-<'<', 3, 3>
-<'destx', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'positivex', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'x', 1, 3>
-<'<', 3, 3>
-<'destx', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'positivey', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'y', 1, 3>
-<'<', 3, 3>
-<'desty', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'let', 1, 3>
-<'d', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'2', 2, 3>
-<'*', 3, 3>
-<'dy', 1, 3>
-<')', 3, 3>
-<'-', 3, 3>
-<'dx', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'straightD', 1, 3>
-<'=', 3, 3>
-<'2', 2, 3>
-<'*', 3, 3>
-<'dy', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'diagonalD', 1, 3>
-<'=', 3, 3>
-<'2', 2, 3>
-<'*', 3, 3>
-<'(', 3, 3>
-<'dy', 1, 3>
-<'-', 3, 3>
-<'dx', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'return', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'int', 1, 3>
-<'move', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'do', 1, 3>
-<'hide', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'d', 1, 3>
-<'<', 3, 3>
-<'0', 2, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'d', 1, 3>
-<'=', 3, 3>
-<'d', 1, 3>
-<'+', 3, 3>
-<'straightD', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'d', 1, 3>
-<'=', 3, 3>
-<'d', 1, 3>
-<'+', 3, 3>
-<'diagonalD', 1, 3>
-<';', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'positivey', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'invert', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'x', 1, 3>
-<'=', 3, 3>
-<'x', 1, 3>
-<'+', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'y', 1, 3>
-<'=', 3, 3>
-<'y', 1, 3>
-<'+', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'invert', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'x', 1, 3>
-<'=', 3, 3>
-<'x', 1, 3>
-<'-', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'y', 1, 3>
-<'=', 3, 3>
-<'y', 1, 3>
-<'-', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'}', 3, 3>
-<'}', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'positivex', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'invert', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'y', 1, 3>
-<'=', 3, 3>
-<'y', 1, 3>
-<'+', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'x', 1, 3>
-<'=', 3, 3>
-<'x', 1, 3>
-<'+', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'invert', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'y', 1, 3>
-<'=', 3, 3>
-<'y', 1, 3>
-<'-', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'x', 1, 3>
-<'=', 3, 3>
-<'x', 1, 3>
-<'-', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'}', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'~', 3, 3>
-<'(', 3, 3>
-<'x', 1, 3>
-<'>', 3, 3>
-<'leftWall', 1, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'wall', 1, 3>
-<'=', 3, 3>
-<'1', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'x', 1, 3>
-<'=', 3, 3>
-<'leftWall', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'~', 3, 3>
-<'(', 3, 3>
-<'x', 1, 3>
-<'<', 3, 3>
-<'rightWall', 1, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'wall', 1, 3>
-<'=', 3, 3>
-<'2', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'x', 1, 3>
-<'=', 3, 3>
-<'rightWall', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'~', 3, 3>
-<'(', 3, 3>
-<'y', 1, 3>
-<'>', 3, 3>
-<'topWall', 1, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'wall', 1, 3>
-<'=', 3, 3>
-<'3', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'y', 1, 3>
-<'=', 3, 3>
-<'topWall', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'~', 3, 3>
-<'(', 3, 3>
-<'y', 1, 3>
-<'<', 3, 3>
-<'bottomWall', 1, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'wall', 1, 3>
-<'=', 3, 3>
-<'4', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'y', 1, 3>
-<'=', 3, 3>
-<'bottomWall', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'do', 1, 3>
-<'show', 1, 3>
-<'(', 3, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'return', 1, 3>
-<'wall', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'', 6, 3>
-<'method', 1, 3>
-<'void', 1, 3>
-<'bounce', 1, 3>
-<'(', 3, 3>
-<'int', 1, 3>
-<'bouncingDirection', 1, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'var', 1, 3>
-<'int', 1, 3>
-<'newx', 1, 3>
-<',', 3, 3>
-<'newy', 1, 3>
-<',', 3, 3>
-<'divLengthx', 1, 3>
-<',', 3, 3>
-<'divLengthy', 1, 3>
-<',', 3, 3>
-<'factor', 1, 3>
-<';', 3, 3>
-<' ', 6, 3>
-<'let', 1, 3>
-<'divLengthx', 1, 3>
-<'=', 3, 3>
-<'lengthx', 1, 3>
-<'/', 3, 3>
-<'10', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'divLengthy', 1, 3>
-<'=', 3, 3>
-<'lengthy', 1, 3>
-<'/', 3, 3>
-<'10', 2, 3>
-<';', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'bouncingDirection', 1, 3>
-<'=', 3, 3>
-<'0', 2, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'factor', 1, 3>
-<'=', 3, 3>
-<'10', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'(', 3, 3>
-<'(', 3, 3>
-<'~', 3, 3>
-<'(', 3, 3>
-<'lengthx', 1, 3>
-<'<', 3, 3>
-<'0', 2, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'&', 3, 3>
-<'(', 3, 3>
-<'bouncingDirection', 1, 3>
-<'=', 3, 3>
-<'1', 2, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'|', 3, 3>
-<'(', 3, 3>
-<'(', 3, 3>
-<'lengthx', 1, 3>
-<'<', 3, 3>
-<'0', 2, 3>
-<')', 3, 3>
-<'&', 3, 3>
-<'(', 3, 3>
-<'bouncingDirection', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'-', 3, 3>
-<'1', 2, 3>
-<')', 3, 3>
-<')', 3, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'factor', 1, 3>
-<'=', 3, 3>
-<'20', 2, 3>
-<';', 3, 3>
-<' ', 6, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'factor', 1, 3>
-<'=', 3, 3>
-<'5', 2, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'	', 6, 3>
-<'}', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'wall', 1, 3>
-<'=', 3, 3>
-<'1', 2, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'newx', 1, 3>
-<'=', 3, 3>
-<'506', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'newy', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'divLengthy', 1, 3>
-<'*', 3, 3>
-<'(', 3, 3>
-<'-', 3, 3>
-<'50', 2, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'/', 3, 3>
-<'divLengthx', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'newy', 1, 3>
-<'=', 3, 3>
-<'y', 1, 3>
-<'+', 3, 3>
-<'(', 3, 3>
-<'newy', 1, 3>
-<'*', 3, 3>
-<'factor', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'wall', 1, 3>
-<'=', 3, 3>
-<'2', 2, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'newx', 1, 3>
-<'=', 3, 3>
-<'0', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'newy', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'divLengthy', 1, 3>
-<'*', 3, 3>
-<'50', 2, 3>
-<')', 3, 3>
-<'/', 3, 3>
-<'divLengthx', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'newy', 1, 3>
-<'=', 3, 3>
-<'y', 1, 3>
-<'+', 3, 3>
-<'(', 3, 3>
-<'newy', 1, 3>
-<'*', 3, 3>
-<'factor', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'if', 1, 3>
-<'(', 3, 3>
-<'wall', 1, 3>
-<'=', 3, 3>
-<'3', 2, 3>
-<')', 3, 3>
-<'{', 3, 3>
-<'let', 1, 3>
-<'newy', 1, 3>
-<'=', 3, 3>
-<'250', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'newx', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'divLengthx', 1, 3>
-<'*', 3, 3>
-<'(', 3, 3>
-<'-', 3, 3>
-<'25', 2, 3>
-<')', 3, 3>
-<')', 3, 3>
-<'/', 3, 3>
-<'divLengthy', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'newx', 1, 3>
-<'=', 3, 3>
-<'x', 1, 3>
-<'+', 3, 3>
-<'(', 3, 3>
-<'newx', 1, 3>
-<'*', 3, 3>
-<'factor', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'else', 1, 3>
-<'{', 3, 3>
-<'	', 6, 3>
-<'let', 1, 3>
-<'newy', 1, 3>
-<'=', 3, 3>
-<'0', 2, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'newx', 1, 3>
-<'=', 3, 3>
-<'(', 3, 3>
-<'divLengthx', 1, 3>
-<'*', 3, 3>
-<'25', 2, 3>
-<')', 3, 3>
-<'/', 3, 3>
-<'divLengthy', 1, 3>
-<';', 3, 3>
-<'let', 1, 3>
-<'newx', 1, 3>
-<'=', 3, 3>
-<'x', 1, 3>
-<'+', 3, 3>
-<'(', 3, 3>
-<'newx', 1, 3>
-<'*', 3, 3>
-<'factor', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'}', 3, 3>
-<'}', 3, 3>
-<'do', 1, 3>
-<'setDestination', 1, 3>
-<'(', 3, 3>
-<'newx', 1, 3>
-<',', 3, 3>
-<'newy', 1, 3>
-<')', 3, 3>
-<';', 3, 3>
-<'return', 1, 3>
-<';', 3, 3>
-<'}', 3, 3>
-<'}', 3, 3>
+< ERR, , 3 >
+< ID, This, 3 >
+< ID, file, 3 >
+< ID, is, 3 >
+< ID, part, 3 >
+< ID, of, 3 >
+< ID, www, 3 >
+< SYMBOL, ., 3 >
+< ID, nand2tetris, 3 >
+< SYMBOL, ., 3 >
+< ID, org, 3 >
+< RESWORD, class, 3 >
+< ID, Ball, 3 >
+< SYMBOL, {, 3 >
+< ID, field, 3 >
+< RESWORD, int, 3 >
+< ID, x, 3 >
+< SYMBOL, ,, 3 >
+< ID, y, 3 >
+< SYMBOL, ;, 3 >
+< ID, field, 3 >
+< RESWORD, int, 3 >
+< ID, lengthx, 3 >
+< SYMBOL, ,, 3 >
+< ID, lengthy, 3 >
+< SYMBOL, ;, 3 >
+< ID, field, 3 >
+< RESWORD, int, 3 >
+< ID, d, 3 >
+< SYMBOL, ,, 3 >
+< ID, straightD, 3 >
+< SYMBOL, ,, 3 >
+< ID, diagonalD, 3 >
+< SYMBOL, ;, 3 >
+< ID, field, 3 >
+< RESWORD, boolean, 3 >
+< ID, invert, 3 >
+< SYMBOL, ,, 3 >
+< ID, positivex, 3 >
+< SYMBOL, ,, 3 >
+< ID, positivey, 3 >
+< SYMBOL, ;, 3 >
+< ID, field, 3 >
+< RESWORD, int, 3 >
+< ID, leftWall, 3 >
+< SYMBOL, ,, 3 >
+< ID, rightWall, 3 >
+< SYMBOL, ,, 3 >
+< ID, topWall, 3 >
+< SYMBOL, ,, 3 >
+< ID, bottomWall, 3 >
+< SYMBOL, ;, 3 >
+< ID, field, 3 >
+< RESWORD, int, 3 >
+< ID, wall, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, constructor, 3 >
+< ID, Ball, 3 >
+< ID, new, 3 >
+< SYMBOL, (, 3 >
+< RESWORD, int, 3 >
+< ID, Ax, 3 >
+< SYMBOL, ,, 3 >
+< RESWORD, int, 3 >
+< ID, Ay, 3 >
+< SYMBOL, ,, 3 >
+< RESWORD, int, 3 >
+< ID, AleftWall, 3 >
+< SYMBOL, ,, 3 >
+< RESWORD, int, 3 >
+< ID, ArightWall, 3 >
+< SYMBOL, ,, 3 >
+< RESWORD, int, 3 >
+< ID, AtopWall, 3 >
+< SYMBOL, ,, 3 >
+< RESWORD, int, 3 >
+< ID, AbottomWall, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, x, 3 >
+< SYMBOL, =, 3 >
+< ID, Ax, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, y, 3 >
+< SYMBOL, =, 3 >
+< ID, Ay, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, leftWall, 3 >
+< SYMBOL, =, 3 >
+< ID, AleftWall, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, rightWall, 3 >
+< SYMBOL, =, 3 >
+< ID, ArightWall, 3 >
+< SYMBOL, -, 3 >
+< INT, 6, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, topWall, 3 >
+< SYMBOL, =, 3 >
+< ID, AtopWall, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, bottomWall, 3 >
+< SYMBOL, =, 3 >
+< ID, AbottomWall, 3 >
+< SYMBOL, -, 3 >
+< INT, 6, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, wall, 3 >
+< SYMBOL, =, 3 >
+< INT, 0, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, do, 3 >
+< ID, show, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< ID, return, 3 >
+< ID, this, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< ID, void, 3 >
+< ID, dispose, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, do, 3 >
+< ID, Memory, 3 >
+< SYMBOL, ., 3 >
+< ID, deAlloc, 3 >
+< SYMBOL, (, 3 >
+< ID, this, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< ID, return, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< ID, void, 3 >
+< ID, show, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, do, 3 >
+< ID, Screen, 3 >
+< SYMBOL, ., 3 >
+< ID, setColor, 3 >
+< SYMBOL, (, 3 >
+< RESWORD, true, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, do, 3 >
+< ID, draw, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< ID, return, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< ID, void, 3 >
+< ID, hide, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, do, 3 >
+< ID, Screen, 3 >
+< SYMBOL, ., 3 >
+< ID, setColor, 3 >
+< SYMBOL, (, 3 >
+< RESWORD, false, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, do, 3 >
+< ID, draw, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< ID, return, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< ID, void, 3 >
+< ID, draw, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, do, 3 >
+< ID, Screen, 3 >
+< SYMBOL, ., 3 >
+< ID, drawRectangle, 3 >
+< SYMBOL, (, 3 >
+< ID, x, 3 >
+< SYMBOL, ,, 3 >
+< ID, y, 3 >
+< SYMBOL, ,, 3 >
+< ID, x, 3 >
+< SYMBOL, +, 3 >
+< INT, 5, 3 >
+< SYMBOL, ,, 3 >
+< ID, y, 3 >
+< SYMBOL, +, 3 >
+< INT, 5, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< ID, return, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< RESWORD, int, 3 >
+< ID, getLeft, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< ID, return, 3 >
+< ID, x, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< RESWORD, int, 3 >
+< ID, getRight, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< ID, return, 3 >
+< ID, x, 3 >
+< SYMBOL, +, 3 >
+< INT, 5, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< ID, void, 3 >
+< ID, setDestination, 3 >
+< SYMBOL, (, 3 >
+< RESWORD, int, 3 >
+< ID, destx, 3 >
+< SYMBOL, ,, 3 >
+< RESWORD, int, 3 >
+< ID, desty, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, var, 3 >
+< RESWORD, int, 3 >
+< ID, dx, 3 >
+< SYMBOL, ,, 3 >
+< ID, dy, 3 >
+< SYMBOL, ,, 3 >
+< ID, temp, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, lengthx, 3 >
+< SYMBOL, =, 3 >
+< ID, destx, 3 >
+< SYMBOL, -, 3 >
+< ID, x, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, lengthy, 3 >
+< SYMBOL, =, 3 >
+< ID, desty, 3 >
+< SYMBOL, -, 3 >
+< ID, y, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, dx, 3 >
+< SYMBOL, =, 3 >
+< ID, Math, 3 >
+< SYMBOL, ., 3 >
+< ID, abs, 3 >
+< SYMBOL, (, 3 >
+< ID, lengthx, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, dy, 3 >
+< SYMBOL, =, 3 >
+< ID, Math, 3 >
+< SYMBOL, ., 3 >
+< ID, abs, 3 >
+< SYMBOL, (, 3 >
+< ID, lengthy, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, invert, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, dx, 3 >
+< SYMBOL, <, 3 >
+< ID, dy, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, invert, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, temp, 3 >
+< SYMBOL, =, 3 >
+< ID, dx, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, dx, 3 >
+< SYMBOL, =, 3 >
+< ID, dy, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, dy, 3 >
+< SYMBOL, =, 3 >
+< ID, temp, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, positivex, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, y, 3 >
+< SYMBOL, <, 3 >
+< ID, desty, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, positivey, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, x, 3 >
+< SYMBOL, <, 3 >
+< ID, destx, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, positivex, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, x, 3 >
+< SYMBOL, <, 3 >
+< ID, destx, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, positivey, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, y, 3 >
+< SYMBOL, <, 3 >
+< ID, desty, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, let, 3 >
+< ID, d, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< INT, 2, 3 >
+< SYMBOL, *, 3 >
+< ID, dy, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, -, 3 >
+< ID, dx, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, straightD, 3 >
+< SYMBOL, =, 3 >
+< INT, 2, 3 >
+< SYMBOL, *, 3 >
+< ID, dy, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, diagonalD, 3 >
+< SYMBOL, =, 3 >
+< INT, 2, 3 >
+< SYMBOL, *, 3 >
+< SYMBOL, (, 3 >
+< ID, dy, 3 >
+< SYMBOL, -, 3 >
+< ID, dx, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< ID, return, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< RESWORD, int, 3 >
+< ID, move, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, do, 3 >
+< ID, hide, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, d, 3 >
+< SYMBOL, <, 3 >
+< INT, 0, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, d, 3 >
+< SYMBOL, =, 3 >
+< ID, d, 3 >
+< SYMBOL, +, 3 >
+< ID, straightD, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, d, 3 >
+< SYMBOL, =, 3 >
+< ID, d, 3 >
+< SYMBOL, +, 3 >
+< ID, diagonalD, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, positivey, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, invert, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, x, 3 >
+< SYMBOL, =, 3 >
+< ID, x, 3 >
+< SYMBOL, +, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, y, 3 >
+< SYMBOL, =, 3 >
+< ID, y, 3 >
+< SYMBOL, +, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, invert, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, x, 3 >
+< SYMBOL, =, 3 >
+< ID, x, 3 >
+< SYMBOL, -, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, y, 3 >
+< SYMBOL, =, 3 >
+< ID, y, 3 >
+< SYMBOL, -, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, positivex, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, invert, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, y, 3 >
+< SYMBOL, =, 3 >
+< ID, y, 3 >
+< SYMBOL, +, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, x, 3 >
+< SYMBOL, =, 3 >
+< ID, x, 3 >
+< SYMBOL, +, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, invert, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, y, 3 >
+< SYMBOL, =, 3 >
+< ID, y, 3 >
+< SYMBOL, -, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, x, 3 >
+< SYMBOL, =, 3 >
+< ID, x, 3 >
+< SYMBOL, -, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ~, 3 >
+< SYMBOL, (, 3 >
+< ID, x, 3 >
+< SYMBOL, >, 3 >
+< ID, leftWall, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, wall, 3 >
+< SYMBOL, =, 3 >
+< INT, 1, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, x, 3 >
+< SYMBOL, =, 3 >
+< ID, leftWall, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ~, 3 >
+< SYMBOL, (, 3 >
+< ID, x, 3 >
+< SYMBOL, <, 3 >
+< ID, rightWall, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, wall, 3 >
+< SYMBOL, =, 3 >
+< INT, 2, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, x, 3 >
+< SYMBOL, =, 3 >
+< ID, rightWall, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ~, 3 >
+< SYMBOL, (, 3 >
+< ID, y, 3 >
+< SYMBOL, >, 3 >
+< ID, topWall, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, wall, 3 >
+< SYMBOL, =, 3 >
+< INT, 3, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, y, 3 >
+< SYMBOL, =, 3 >
+< ID, topWall, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ~, 3 >
+< SYMBOL, (, 3 >
+< ID, y, 3 >
+< SYMBOL, <, 3 >
+< ID, bottomWall, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, wall, 3 >
+< SYMBOL, =, 3 >
+< INT, 4, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, y, 3 >
+< SYMBOL, =, 3 >
+< ID, bottomWall, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, do, 3 >
+< ID, show, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< ID, return, 3 >
+< ID, wall, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, method, 3 >
+< ID, void, 3 >
+< ID, bounce, 3 >
+< SYMBOL, (, 3 >
+< RESWORD, int, 3 >
+< ID, bouncingDirection, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, var, 3 >
+< RESWORD, int, 3 >
+< ID, newx, 3 >
+< SYMBOL, ,, 3 >
+< ID, newy, 3 >
+< SYMBOL, ,, 3 >
+< ID, divLengthx, 3 >
+< SYMBOL, ,, 3 >
+< ID, divLengthy, 3 >
+< SYMBOL, ,, 3 >
+< ID, factor, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, divLengthx, 3 >
+< SYMBOL, =, 3 >
+< ID, lengthx, 3 >
+< INT, 10, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, divLengthy, 3 >
+< SYMBOL, =, 3 >
+< ID, lengthy, 3 >
+< INT, 10, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, bouncingDirection, 3 >
+< SYMBOL, =, 3 >
+< INT, 0, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, factor, 3 >
+< SYMBOL, =, 3 >
+< INT, 10, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, ~, 3 >
+< SYMBOL, (, 3 >
+< ID, lengthx, 3 >
+< SYMBOL, <, 3 >
+< INT, 0, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, &, 3 >
+< SYMBOL, (, 3 >
+< ID, bouncingDirection, 3 >
+< SYMBOL, =, 3 >
+< INT, 1, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, |, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, (, 3 >
+< ID, lengthx, 3 >
+< SYMBOL, <, 3 >
+< INT, 0, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, &, 3 >
+< SYMBOL, (, 3 >
+< ID, bouncingDirection, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, -, 3 >
+< INT, 1, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, factor, 3 >
+< SYMBOL, =, 3 >
+< INT, 20, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, factor, 3 >
+< SYMBOL, =, 3 >
+< INT, 5, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, wall, 3 >
+< SYMBOL, =, 3 >
+< INT, 1, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, newx, 3 >
+< SYMBOL, =, 3 >
+< INT, 506, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, newy, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, divLengthy, 3 >
+< SYMBOL, *, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, -, 3 >
+< INT, 50, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< ID, divLengthx, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, newy, 3 >
+< SYMBOL, =, 3 >
+< ID, y, 3 >
+< SYMBOL, +, 3 >
+< SYMBOL, (, 3 >
+< ID, newy, 3 >
+< SYMBOL, *, 3 >
+< ID, factor, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, wall, 3 >
+< SYMBOL, =, 3 >
+< INT, 2, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, newx, 3 >
+< SYMBOL, =, 3 >
+< INT, 0, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, newy, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, divLengthy, 3 >
+< SYMBOL, *, 3 >
+< INT, 50, 3 >
+< SYMBOL, ), 3 >
+< ID, divLengthx, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, newy, 3 >
+< SYMBOL, =, 3 >
+< ID, y, 3 >
+< SYMBOL, +, 3 >
+< SYMBOL, (, 3 >
+< ID, newy, 3 >
+< SYMBOL, *, 3 >
+< ID, factor, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, if, 3 >
+< SYMBOL, (, 3 >
+< ID, wall, 3 >
+< SYMBOL, =, 3 >
+< INT, 3, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, newy, 3 >
+< SYMBOL, =, 3 >
+< INT, 250, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, newx, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, divLengthx, 3 >
+< SYMBOL, *, 3 >
+< SYMBOL, (, 3 >
+< SYMBOL, -, 3 >
+< INT, 25, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ), 3 >
+< ID, divLengthy, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, newx, 3 >
+< SYMBOL, =, 3 >
+< ID, x, 3 >
+< SYMBOL, +, 3 >
+< SYMBOL, (, 3 >
+< ID, newx, 3 >
+< SYMBOL, *, 3 >
+< ID, factor, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, else, 3 >
+< SYMBOL, {, 3 >
+< RESWORD, let, 3 >
+< ID, newy, 3 >
+< SYMBOL, =, 3 >
+< INT, 0, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, newx, 3 >
+< SYMBOL, =, 3 >
+< SYMBOL, (, 3 >
+< ID, divLengthx, 3 >
+< SYMBOL, *, 3 >
+< INT, 25, 3 >
+< SYMBOL, ), 3 >
+< ID, divLengthy, 3 >
+< SYMBOL, ;, 3 >
+< RESWORD, let, 3 >
+< ID, newx, 3 >
+< SYMBOL, =, 3 >
+< ID, x, 3 >
+< SYMBOL, +, 3 >
+< SYMBOL, (, 3 >
+< ID, newx, 3 >
+< SYMBOL, *, 3 >
+< ID, factor, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >
+< RESWORD, do, 3 >
+< ID, setDestination, 3 >
+< SYMBOL, (, 3 >
+< ID, newx, 3 >
+< SYMBOL, ,, 3 >
+< ID, newy, 3 >
+< SYMBOL, ), 3 >
+< SYMBOL, ;, 3 >
+< ID, return, 3 >
+< SYMBOL, ;, 3 >
+< SYMBOL, }, 3 >
+< SYMBOL, }, 3 >

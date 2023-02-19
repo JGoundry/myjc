@@ -39,6 +39,7 @@ const char *ReservedWords[] = {"class", "constructor", "method", "function:",
 const char Symbols[] = {'(', ')', '[', ']', '{', '}', ',', ';', '=', '.',
 						'+', '-', '*', '/', '&', '|', '~', '<', '>'};
 
+
 // IMPLEMENT THE FOLLOWING functions
 //***********************************
 
@@ -65,7 +66,10 @@ Token GetNextToken()
 	Token t;
 	t.tp = ERR;
 
-	// while (c != '\n') {
+	while (isspace(c) || c == '\n' || c == '/') {
+
+	c = getc(f);
+
 	// Remove whitespace
 	while (isspace(c) || c == '\n')
 	{
@@ -138,6 +142,8 @@ Token GetNextToken()
 			fsetpos(f, pos);
 			break;
 		}
+
+
 		if (c == '\n')
 			c = getc(f);
 	}
@@ -146,6 +152,8 @@ Token GetNextToken()
 	if (c == EOF) {
 		t.tp = EOFile;
 		return t;
+	}
+
 	}
 
 	// Temp lexeme storage and array iterator
@@ -189,8 +197,9 @@ Token GetNextToken()
 
 		// Check for keyword
 		for (int j=0; j < RESERVED_SIZE; j++) {
-			if (strcmp(ReservedWords[i], lexeme) == 0) {
-				isResword = 0;
+			if (strcmp(ReservedWords[j], lexeme) == 0) {
+				isResword = 1;
+				break;
 			}
 		}
 
@@ -240,7 +249,6 @@ Token GetNextToken()
 		return t;
 	}
 
-	// }
 
 	// Else must be illegal symbol
 	else {
@@ -275,6 +283,9 @@ int StopLexer()
 
 // do not remove the next line
 #ifndef TEST
+
+const char *TokenTypeArr[] = { "RESWORD", "ID", "INT", "SYMBOL", "STRING", "EOFile", "ERR" };
+
 int main(int argc, char *argv[])
 {
 	// NOTE: the autograder will not use your main function
@@ -290,10 +301,26 @@ int main(int argc, char *argv[])
         Token t = GetNextToken();
         if (t.tp == EOFile)
             break;
-        printf("<'%s', %d, %d>\n", t.lx, t.tp, t.ec);
+        printf("< %s, %s, %d >\n", TokenTypeArr[t.tp], t.lx, t.ec);
     }
 
 	return 0;
 }
 // do not remove the next line
 #endif
+
+/*
+
+	1. Remove white space (+ newline)
+
+	2. Check for comments
+
+	3. Look for strings (can return)
+
+	4. Check for reserved words and id (can return)
+
+	5. check for symbols (can return)
+
+	5.
+
+*/
