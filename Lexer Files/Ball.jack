@@ -190,7 +190,7 @@ class Ball {
                     let newx = x + (newx * factor);
 		        }
                 else { // assumes wall = 4
-		            let newy = 0;
+                    let newy = 0;
 		            let newx = (divLengthx * 25) / divLengthy;
                     let newx = x + (newx * factor);
 		        }

@@ -28,12 +28,13 @@ Date Work Commenced:
 // File pointer and character iterator
 FILE *f;
 int c;
+int LineNumber;
 
 const char *ReservedWords[] = {"class", "constructor", "method", "function:",
-							   "int", "boolean", "char", "void:",
-							   "var", "static", "field:",
-							   "let", "do", "if", "else", "while", "return:",
-							   "true", "false", "null:", "this:"};
+							   "int", "boolean", "char", "void",
+							   "var", "static", "field",
+							   "let", "do", "if", "else", "while", "return",
+							   "true", "false", "null", "this"};
 
 
 const char Symbols[] = {'(', ')', '[', ']', '{', '}', ',', ';', '=', '.',
@@ -55,10 +56,12 @@ int InitLexer(char *file_name)
 	{ // failure
 		return 0;
 	}
-
+	LineNumber = 1;
 
 	return 1;
 }
+
+_Bool BreakLoop = 0;
 
 // Get the next token from the source file
 Token GetNextToken()
@@ -66,197 +69,198 @@ Token GetNextToken()
 	Token t;
 	t.tp = ERR;
 
-	while (isspace(c) || c == '\n' || c == '/') {
-
 	c = getc(f);
 
-	// Remove whitespace
-	while (isspace(c) || c == '\n')
-	{
-		c = getc(f);
-	}
+	BreakLoop = 0;
 
-	// Check for comment, remember EOF comment
-	while (c == '/')
-	{
-		// Save current pos
-		fpos_t *pos;
-		fgetpos(f, pos);
-
-		c = getc(f);
-
-		// Comment to end of line
-		if (c == '/')
+	while (isspace(c) || c == '\n' || c == '/') {
+		if (BreakLoop) {
+			break;
+		}
+		
+		// Remove whitespace
+		while (isspace(c) || c == '\n')
 		{
-			while (c != '\n' && c != EOF)
-			{
-				c = getc(f);
+			if (c == '\n') {
+				LineNumber++;
 			}
-			if (c == EOF)
-			{
-				t.tp = ERR;
-				t.ec = EofInStr;
-				return t;
-			}
-			else {
-				// Skip newline
-				c = getc(f);
-			}
+
+			c = getc(f);
 		}
 
-		// Comment until closing
-		else if (c == '*')
+		// Check for comment, remember EOF comment
+		while (c == '/')
 		{
+			// Save current pos
+			fpos_t *pos;
+			fgetpos(f, pos);
+
 			c = getc(f);
 
-			if (c == '*')
+			// Comment to end of line
+			if (c == '/')
 			{
-				// API documentation comment
-				c = getc(f);
-			}
-			while (1)
-			{
-				if (c == '*')
+				while (c != '\n' && c != EOF)
 				{
 					c = getc(f);
-					if (c == '/') {
-						c = getc(f);
-						break;
-					}
-					else
-						continue;
 				}
-				else if (c == EOF)
+				if (c == EOF)
 				{
 					t.tp = ERR;
 					t.ec = EofInStr;
 					return t;
 				}
+				else {
+					// New Line
+					LineNumber++;
+					c = getc(f);
+				}
+			}
+
+			// Comment until closing
+			else if (c == '*')
+			{
 				c = getc(f);
+
+				if (c == '*')
+				{
+					// API documentation comment
+					c = getc(f);
+				}
+
+
+				while (1)
+				{
+					if (c == '*')
+					{
+						c = getc(f);
+						if (c == '/') { // end of comment
+							c = getc(f);
+							BreakLoop = 1;
+							break;
+						}
+						else {
+							continue;
+						}
+					}
+					else if (c == EOF)
+					{
+						t.tp = ERR;
+						t.ec = EofInCom;
+						return t;
+					}
+					if (c == '\n')
+						LineNumber++;
+
+					c = getc(f);	
+				}
 			}
-		}
-		else
-		{
-			// Not a comment, move iterator back
-			c = '/';
-			fsetpos(f, pos);
-			break;
-		}
-
-
-		if (c == '\n')
-			c = getc(f);
-	}
-
-	// Check for EOF
-	if (c == EOF) {
-		t.tp = EOFile;
-		return t;
-	}
-
-	}
-
-	// Temp lexeme storage and array iterator
-    char lexeme[128];
-	unsigned int i = 0;
-
-	// Check for string
-	if (c == '"') {
-		c = getc(f);
-		while (c != '"') {
-			if (c == '\n') {
-				t.tp = ERR;
-				t.ec = NewLnInStr;
-				return t;
-			}
-			else if (c == EOF) {
-				t.tp = ERR;
-				t.ec =EofInStr;
-				return t;
-			}
-			lexeme[i++] = c;
-			c = getc(f);
-		}
-		lexeme[i] = '\0';
-		t.tp = STRING;
-		strcpy(t.lx, lexeme);
-	}
-
-	// Check for reserved words and id
-	// **** NO CHECK FOR EOF OR NEWLN ****
-	if (isalpha(c) || c == '_') {
-
-		// Read in string
-        while (isalnum(c) || c == '_') {
-            lexeme[i++] = c;
-            c = getc(f);
-        }
-        lexeme[i] = '\0';
-
-        _Bool isResword = 0;
-
-		// Check for keyword
-		for (int j=0; j < RESERVED_SIZE; j++) {
-			if (strcmp(ReservedWords[j], lexeme) == 0) {
-				isResword = 1;
+			else
+			{
+				// Not a comment, move iterator back
+				c = '/';
+				fsetpos(f, pos);
+				BreakLoop = 1;
 				break;
 			}
 		}
 
-		// String is reserved word
-        if (isResword) {
-            t.tp = RESWORD;
-            strcpy(t.lx, lexeme);
-        }
+		// Temp lexeme storage and array iterator
+		char lexeme[128];
+		unsigned int i = 0;
 
-        // String is identifier
-        else {
-            t.tp = ID;
-            strcpy(t.lx, lexeme);
-        }
-
-		return t;
-	}
-
-	// Check for number
-	if (isdigit(c)) {
-		while (isdigit(c)) {
-			lexeme[i++] = c;
+		// Check for string
+		if (c == '"') {
 			c = getc(f);
+			while (c != '"') {
+				if (c == '\n') {
+					LineNumber++;
+					t.tp = ERR;
+					t.ec = NewLnInStr;
+					return t;
+				}
+				else if (c == EOF) {
+					t.tp = ERR;
+					t.ec =EofInStr;
+					return t;
+				}
+				lexeme[i++] = c;
+				// c = getc(f);
+			}
+			lexeme[i] = '\0';
+			t.tp = STRING;
+			strcpy(t.lx, lexeme);
+			
+			return t;
 		}
-		lexeme[i] = '\0';
-		t.tp = INT;
+
+		// Check for reserved words and id
+		// **** NO CHECK FOR EOF OR NEWLN ****
+		if (isalpha(c) || c == '_') {
+
+			// Read in string
+			while (isalnum(c) || c == '_') {
+				lexeme[i++] = c;
+				c = getc(f);
+			}
+			lexeme[i] = '\0';
+
+
+			// Check for keyword, return if is
+			for (int j=0; j < RESERVED_SIZE; j++) {
+				if (strcmp(ReservedWords[j], lexeme) == 0) {
+					t.tp = RESWORD;
+					strcpy(t.lx, lexeme);
+					return t;
+				}
+			}
+
+			// String is identifier
+			t.tp = ID;
+			strcpy(t.lx, lexeme);
+			return t;
+		}
+		// Check for number
+		if (isdigit(c)) {
+			while (isdigit(c)) {
+				lexeme[i++] = c;
+				c = getc(f);
+			}
+			lexeme[i] = '\0';
+			t.tp = INT;
+			strcpy(t.lx, lexeme);
+			return t;
+		}
+
+
+		// Check for symbol
+		lexeme[0] = c;
+		lexeme[1] = '\0';
 		strcpy(t.lx, lexeme);
-		return t;
-	}
 
-
-	// Check for symbol
-	lexeme[0] = c;
-	lexeme[1] = '\0';
-	strcpy(t.lx, lexeme);
-
-	_Bool isSymbol = 0;
-	for (int j=0; j < SYMBOL_SIZE; j++) {
-		if (Symbols[j] == c) {
-			isSymbol = 1;
+		_Bool isSymbol = 0;
+		for (int j=0; j < SYMBOL_SIZE; j++) {
+			if (Symbols[j] == c) {
+				t.tp = SYMBOL;
+				c = getc(f);
+				return t;
+			}
 		}
+
+		// Else must be illegal symbol
+
+		if (c == EOF) {
+			t.tp = EOFile;
+			return t;
+		}
+
 	}
 
-	if (isSymbol) {
-		t.tp = SYMBOL;
-		c = getc(f);
-		return t;
-	}
-
-
-	// Else must be illegal symbol
-	else {
-		t.ec = IllSym;
-		c = getc(f);
-	}
-
+	// Else it must be illegal symbol
+	t.ec = IllSym;
+	c = getc(f);
 	return t;
+	
 }
 
 // peek (look) at the next token in the source file without removing it from the stream
@@ -301,7 +305,7 @@ int main(int argc, char *argv[])
         Token t = GetNextToken();
         if (t.tp == EOFile)
             break;
-        printf("< %s, %s, %d >\n", TokenTypeArr[t.tp], t.lx, t.ec);
+        printf("< Ball.jack, %d, %s, %s >\n", LineNumber, t.lx, TokenTypeArr[t.tp]);
     }
 
 	return 0;
