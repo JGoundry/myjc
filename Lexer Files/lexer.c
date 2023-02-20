@@ -243,7 +243,6 @@ Token GetNextToken()
 		for (int j=0; j < SYMBOL_SIZE; j++) {
 			if (Symbols[j] == c) {
 				t.tp = SYMBOL;
-				c = getc(f);
 				return t;
 			}
 		}
