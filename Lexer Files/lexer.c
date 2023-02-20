@@ -73,11 +73,7 @@ Token GetNextToken()
 
 	BreakLoop = 0;
 
-	while (isspace(c) || c == '\n' || c == '/') {
-		if (BreakLoop) {
-			break;
-		}
-		
+	while (isspace(c) || c == '\n' || c == '/') {		
 		// Remove whitespace
 		while (isspace(c) || c == '\n')
 		{
@@ -86,6 +82,10 @@ Token GetNextToken()
 			}
 
 			c = getc(f);
+		}
+
+		if (BreakLoop) {
+			break;
 		}
 
 		// Check for comment, remember EOF comment
@@ -164,6 +164,7 @@ Token GetNextToken()
 				break;
 			}
 		}
+	}
 
 		// Temp lexeme storage and array iterator
 		char lexeme[128];
@@ -253,8 +254,6 @@ Token GetNextToken()
 			t.tp = EOFile;
 			return t;
 		}
-
-	}
 
 	// Else it must be illegal symbol
 	t.ec = IllSym;
