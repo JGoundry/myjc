@@ -69,8 +69,6 @@ Token GetNextToken()
 	Token t;
 	t.tp = ERR;
 
-	c = getc(f);
-
 	BreakLoop = 0;
 
 	while (isspace(c) || c == '\n' || c == '/') {		
@@ -80,7 +78,6 @@ Token GetNextToken()
 			if (c == '\n') {
 				LineNumber++;
 			}
-
 			c = getc(f);
 		}
 
@@ -169,6 +166,8 @@ Token GetNextToken()
 		// Temp lexeme storage and array iterator
 		char lexeme[128];
 		unsigned int i = 0;
+		fpos_t *pos;
+		int temp;
 
 		// Check for string
 		if (c == '"') {
@@ -186,8 +185,9 @@ Token GetNextToken()
 					return t;
 				}
 				lexeme[i++] = c;
-				// c = getc(f);
+				c = getc(f);
 			}
+			c = getc(f); // skip "
 			lexeme[i] = '\0';
 			t.tp = STRING;
 			strcpy(t.lx, lexeme);
@@ -206,7 +206,6 @@ Token GetNextToken()
 			}
 			lexeme[i] = '\0';
 
-
 			// Check for keyword, return if is
 			for (int j=0; j < RESERVED_SIZE; j++) {
 				if (strcmp(ReservedWords[j], lexeme) == 0) {
@@ -221,6 +220,7 @@ Token GetNextToken()
 			strcpy(t.lx, lexeme);
 			return t;
 		}
+
 		// Check for number
 		if (isdigit(c)) {
 			while (isdigit(c)) {
@@ -233,7 +233,6 @@ Token GetNextToken()
 			return t;
 		}
 
-
 		// Check for symbol
 		lexeme[0] = c;
 		lexeme[1] = '\0';
@@ -242,6 +241,7 @@ Token GetNextToken()
 		_Bool isSymbol = 0;
 		for (int j=0; j < SYMBOL_SIZE; j++) {
 			if (Symbols[j] == c) {
+				c = getc(f);
 				t.tp = SYMBOL;
 				return t;
 			}
@@ -250,6 +250,7 @@ Token GetNextToken()
 		// Else must be illegal symbol
 
 		if (c == EOF) {
+			strcpy(t.lx, "End of File\0");
 			t.tp = EOFile;
 			return t;
 		}
@@ -268,10 +269,19 @@ Token PeekNextToken()
 	t.tp = ERR;
 
 	// Peek current pos in file
+	fpos_t *pos;
+	int tempC;
+	int tempLineNumber;
 
-	// Call GetNextToken
+	fgetpos(f, pos);
+	tempC = c;
+	tempLineNumber = LineNumber;
 
-	// Reset to old pos in file
+	t = GetNextToken();
+
+	fsetpos(f, pos);
+	c = tempC;
+	LineNumber = tempLineNumber;
 
 	return t;
 }
@@ -299,12 +309,13 @@ int main(int argc, char *argv[])
 
     InitLexer(argv[1]);
 
+
     while (1) {
-        Token t = GetNextToken();
-        if (t.tp == EOFile)
-            break;
+		Token t = GetNextToken();
         printf("< Ball.jack, %d, %s, %s >\n", LineNumber, t.lx, TokenTypeArr[t.tp]);
-    }
+		if (t.tp == EOFile)
+            break;
+	}
 
 	return 0;
 }
