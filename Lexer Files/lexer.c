@@ -29,6 +29,7 @@ Date Work Commenced:
 FILE *f;
 int c;
 int LineNumber;
+_Bool startOfFile;
 
 const char *ReservedWords[] = {"class", "constructor", "method", "function:",
 							   "int", "boolean", "char", "void",
@@ -57,6 +58,7 @@ int InitLexer(char *file_name)
 		return 0;
 	}
 	LineNumber = 1;
+	startOfFile = 1;
 
 	return 1;
 }
@@ -69,7 +71,12 @@ Token GetNextToken()
 	Token t;
 	t.tp = ERR;
 
-	BreakLoop = 0;
+	if (startOfFile) {
+		c = getc(f);
+		startOfFile = 0;
+	}
+
+	BreakLoop = 0;	// used to break out of double loop
 
 	while (isspace(c) || c == '\n' || c == '/') {		
 		// Remove whitespace
@@ -309,10 +316,9 @@ int main(int argc, char *argv[])
 
     InitLexer(argv[1]);
 
-
     while (1) {
 		Token t = GetNextToken();
-        printf("< Ball.jack, %d, %s, %s >\n", LineNumber, t.lx, TokenTypeArr[t.tp]);
+        printf("< %s, %d, %s, %s >\n", "file_name", LineNumber, t.lx, TokenTypeArr[t.tp]);
 		if (t.tp == EOFile)
             break;
 	}
@@ -321,19 +327,3 @@ int main(int argc, char *argv[])
 }
 // do not remove the next line
 #endif
-
-/*
-
-	1. Remove white space (+ newline)
-
-	2. Check for comments
-
-	3. Look for strings (can return)
-
-	4. Check for reserved words and id (can return)
-
-	5. check for symbols (can return)
-
-	5.
-
-*/
