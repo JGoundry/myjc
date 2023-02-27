@@ -144,6 +144,7 @@ Token GetNextToken()
 					{
 						c = getc(f);
 						if (c == '/') { // end of comment
+							printf("End of Comment");
 							c = getc(f);
 							BreakLoop = 1;
 							break;
@@ -156,6 +157,7 @@ Token GetNextToken()
 					{
 						t.tp = ERR;
 						t.ec = EofInCom;
+						strcpy(t.lx, "Error: unexpected eof in comment\0");
 						t.ln = LineNumber;
 						return t;
 					}
@@ -187,15 +189,17 @@ Token GetNextToken()
 			c = getc(f);
 			while (c != '"') {
 				if (c == '\n') {
-					LineNumber++;
 					t.tp = ERR;
 					t.ec = NewLnInStr;
+					strcpy(t.lx, "Error: new line in string constant\0");
 					t.ln = LineNumber;
+					LineNumber++;
 					return t;
 				}
 				else if (c == EOF) {
 					t.tp = ERR;
-					t.ec =EofInStr;
+					t.ec = EofInStr;
+					strcpy(t.lx, "Error: unexpected eof in string constant\0");
 					t.ln = LineNumber;
 					return t;
 				}
@@ -279,6 +283,7 @@ Token GetNextToken()
 	// Else it must be illegal symbol
 	t.ec = IllSym;
 	c = getc(f);
+	strcpy(t.lx, "Error: illegal symbol in source file\0");
 	t.ln = LineNumber;
 	return t;
 	
