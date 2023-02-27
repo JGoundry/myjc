@@ -334,7 +334,7 @@ int main(int argc, char *argv[])
 
     while (1) {
 		Token t = GetNextToken();
-        printf("< %s, %d, %s, %s >\n", "file_name", LineNumber, t.lx, TokenTypeArr[t.tp]);
+        printf("< %s, %d, %s, %s >\n", t.fl, LineNumber, t.lx, TokenTypeArr[t.tp]);
 		if (t.tp == EOFile)
             break;
 	}
