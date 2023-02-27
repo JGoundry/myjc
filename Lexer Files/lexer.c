@@ -30,8 +30,9 @@ FILE *f;
 int c;
 int LineNumber;
 _Bool startOfFile;
+char fileName [32];
 
-const char *ReservedWords[] = {"class", "constructor", "method", "function:",
+const char *ReservedWords[] = {"class", "constructor", "method", "function",
 							   "int", "boolean", "char", "void",
 							   "var", "static", "field",
 							   "let", "do", "if", "else", "while", "return",
@@ -60,6 +61,8 @@ int InitLexer(char *file_name)
 	LineNumber = 1;
 	startOfFile = 1;
 
+	strcpy(fileName, file_name);
+
 	return 1;
 }
 
@@ -69,6 +72,7 @@ _Bool BreakLoop = 0;
 Token GetNextToken()
 {	
 	Token t;
+	strcpy(t.fl, fileName);
 	t.tp = ERR;
 
 	if (startOfFile) {
@@ -112,6 +116,7 @@ Token GetNextToken()
 				{
 					t.tp = ERR;
 					t.ec = EofInStr;
+					t.ln = LineNumber;
 					return t;
 				}
 				else {
@@ -151,6 +156,7 @@ Token GetNextToken()
 					{
 						t.tp = ERR;
 						t.ec = EofInCom;
+						t.ln = LineNumber;
 						return t;
 					}
 					if (c == '\n')
@@ -184,11 +190,13 @@ Token GetNextToken()
 					LineNumber++;
 					t.tp = ERR;
 					t.ec = NewLnInStr;
+					t.ln = LineNumber;
 					return t;
 				}
 				else if (c == EOF) {
 					t.tp = ERR;
 					t.ec =EofInStr;
+					t.ln = LineNumber;
 					return t;
 				}
 				lexeme[i++] = c;
@@ -198,6 +206,7 @@ Token GetNextToken()
 			lexeme[i] = '\0';
 			t.tp = STRING;
 			strcpy(t.lx, lexeme);
+			t.ln = LineNumber;
 			
 			return t;
 		}
@@ -218,6 +227,7 @@ Token GetNextToken()
 				if (strcmp(ReservedWords[j], lexeme) == 0) {
 					t.tp = RESWORD;
 					strcpy(t.lx, lexeme);
+					t.ln = LineNumber;
 					return t;
 				}
 			}
@@ -225,6 +235,7 @@ Token GetNextToken()
 			// String is identifier
 			t.tp = ID;
 			strcpy(t.lx, lexeme);
+			t.ln = LineNumber;
 			return t;
 		}
 
@@ -237,6 +248,7 @@ Token GetNextToken()
 			lexeme[i] = '\0';
 			t.tp = INT;
 			strcpy(t.lx, lexeme);
+			t.ln = LineNumber;
 			return t;
 		}
 
@@ -250,6 +262,7 @@ Token GetNextToken()
 			if (Symbols[j] == c) {
 				c = getc(f);
 				t.tp = SYMBOL;
+				t.ln = LineNumber;
 				return t;
 			}
 		}
@@ -259,12 +272,14 @@ Token GetNextToken()
 		if (c == EOF) {
 			strcpy(t.lx, "End of File\0");
 			t.tp = EOFile;
+			t.ln = LineNumber;
 			return t;
 		}
 
 	// Else it must be illegal symbol
 	t.ec = IllSym;
 	c = getc(f);
+	t.ln = LineNumber;
 	return t;
 	
 }
@@ -273,6 +288,7 @@ Token GetNextToken()
 Token PeekNextToken()
 {
 	Token t;
+	strcpy(t.fl, fileName);
 	t.tp = ERR;
 
 	// Peek current pos in file
@@ -318,7 +334,7 @@ int main(int argc, char *argv[])
 
     while (1) {
 		Token t = GetNextToken();
-        printf("< %s, %d, %s, %s >\n", "file_name", LineNumber, t.lx, TokenTypeArr[t.tp]);
+        printf("< %s, %d, %s, %s >\n", t.fl, LineNumber, t.lx, TokenTypeArr[t.tp]);
 		if (t.tp == EOFile)
             break;
 	}
