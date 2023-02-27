@@ -144,7 +144,6 @@ Token GetNextToken()
 					{
 						c = getc(f);
 						if (c == '/') { // end of comment
-							printf("End of Comment");
 							c = getc(f);
 							BreakLoop = 1;
 							break;
