@@ -30,7 +30,7 @@ FILE *f;
 int c;
 int LineNumber;
 _Bool startOfFile;
-char fileName [32];
+char fileName[32];
 
 const char *ReservedWords[] = {"class", "constructor", "method", "function",
 							   "int", "boolean", "char", "void",
@@ -292,23 +292,22 @@ Token GetNextToken()
 Token PeekNextToken()
 {
 	Token t;
-	strcpy(t.fl, fileName);
-	t.tp = ERR;
 
-	// Peek current pos in file
-	fpos_t *pos;
-	int tempC;
-	int tempLineNumber;
+	// int tempC = c;
+	// int tempLineNumber = LineNumber;
+	// _Bool tempStartOfFile = startOfFile;
 
-	fgetpos(f, pos);
-	tempC = c;
-	tempLineNumber = LineNumber;
+	// // Save current pos
+	// fpos_t *pos;
+	// fgetpos(f, pos);
+	
+	// t = GetNextToken();
 
-	t = GetNextToken();
+	// fsetpos(f, pos);
 
-	fsetpos(f, pos);
-	c = tempC;
-	LineNumber = tempLineNumber;
+	// c = tempC;
+	// LineNumber = tempLineNumber;
+	// startOfFile = tempStartOfFile;
 
 	return t;
 }
