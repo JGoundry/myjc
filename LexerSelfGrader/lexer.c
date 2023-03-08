@@ -30,7 +30,7 @@ FILE *f;
 int c;
 int LineNumber;
 _Bool startOfFile;
-char fileName[32];
+char *fileName;
 
 const char *ReservedWords[] = {"class", "constructor", "method", "function",
 							   "int", "boolean", "char", "void",
@@ -61,7 +61,7 @@ int InitLexer(char *file_name)
 	LineNumber = 1;
 	startOfFile = 1;
 
-	strcpy(fileName, file_name);
+	fileName = file_name;
 
 	return 1;
 }
@@ -100,8 +100,8 @@ Token GetNextToken()
 		while (c == '/')
 		{
 			// Save current pos
-			fpos_t *pos;
-			fgetpos(f, pos);
+			fpos_t pos;
+			fgetpos(f, &pos);
 
 			c = getc(f);
 
@@ -170,7 +170,7 @@ Token GetNextToken()
 			{
 				// Not a comment, move iterator back
 				c = '/';
-				fsetpos(f, pos);
+				fsetpos(f, &pos);
 				BreakLoop = 1;
 				break;
 			}
@@ -293,21 +293,21 @@ Token PeekNextToken()
 {
 	Token t;
 
-	// int tempC = c;
-	// int tempLineNumber = LineNumber;
-	// _Bool tempStartOfFile = startOfFile;
+	int tempC = c;
+	int tempLineNumber = LineNumber;
+	_Bool tempStartOfFile = startOfFile;
 
-	// // Save current pos
-	// fpos_t *pos;
-	// fgetpos(f, pos);
+	// Save current pos
+	fpos_t pos;
+	fgetpos(f, &pos);
 	
-	// t = GetNextToken();
+	t = GetNextToken();
 
-	// fsetpos(f, pos);
+	fsetpos(f, &pos);
 
-	// c = tempC;
-	// LineNumber = tempLineNumber;
-	// startOfFile = tempStartOfFile;
+	c = tempC;
+	LineNumber = tempLineNumber;
+	startOfFile = tempStartOfFile;
 
 	return t;
 }
@@ -316,6 +316,7 @@ Token PeekNextToken()
 int StopLexer()
 {
 	fclose(f);
+	// free(pos);
 	return 0;
 }
 
