@@ -145,7 +145,6 @@ Token GetNextToken()
 						c = getc(f);
 						if (c == '/') { // end of comment
 							c = getc(f);
-							BreakLoop = 1;
 							break;
 						}
 						else {
