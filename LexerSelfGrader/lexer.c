@@ -54,8 +54,7 @@ const char Symbols[] = {'(', ')', '[', ']', '{', '}', ',', ';', '=', '.',
 int InitLexer(char *file_name)
 {
 	f = fopen(file_name, "r");
-	if (f == 0)
-	{ // failure
+	if (f == 0) { // failure
 		return 0;
 	}
 	LineNumber = 1;
@@ -84,8 +83,7 @@ Token GetNextToken()
 
 	while (isspace(c) || c == '\n' || c == '/') {		
 		// Remove whitespace
-		while (isspace(c) || c == '\n')
-		{
+		while (isspace(c) || c == '\n') {
 			if (c == '\n') {
 				LineNumber++;
 			}
@@ -97,8 +95,7 @@ Token GetNextToken()
 		}
 
 		// Check for comment, remember EOF comment
-		while (c == '/')
-		{
+		while (c == '/') {
 			// Save current pos
 			fpos_t pos;
 			fgetpos(f, &pos);
@@ -106,14 +103,11 @@ Token GetNextToken()
 			c = getc(f);
 
 			// Comment to end of line
-			if (c == '/')
-			{
-				while (c != '\n' && c != EOF)
-				{
+			if (c == '/') {
+				while (c != '\n' && c != EOF) {
 					c = getc(f);
 				}
-				if (c == EOF)
-				{
+				if (c == EOF) {
 					t.tp = ERR;
 					t.ec = EofInStr;
 					t.ln = LineNumber;
@@ -127,21 +121,16 @@ Token GetNextToken()
 			}
 
 			// Comment until closing
-			else if (c == '*')
-			{
+			else if (c == '*') {
 				c = getc(f);
-
-				if (c == '*')
-				{
+				if (c == '*') {
 					// API documentation comment
 					c = getc(f);
 				}
 
 
-				while (1)
-				{
-					if (c == '*')
-					{
+				while (1) {
+					if (c == '*') {
 						c = getc(f);
 						if (c == '/') { // end of comment
 							c = getc(f);
@@ -151,8 +140,7 @@ Token GetNextToken()
 							continue;
 						}
 					}
-					else if (c == EOF)
-					{
+					else if (c == EOF) {
 						t.tp = ERR;
 						t.ec = EofInCom;
 						strcpy(t.lx, "Error: unexpected eof in comment\0");
@@ -165,8 +153,7 @@ Token GetNextToken()
 					c = getc(f);	
 				}
 			}
-			else
-			{
+			else {
 				// Not a comment, move iterator back
 				c = '/';
 				fsetpos(f, &pos);
@@ -214,7 +201,6 @@ Token GetNextToken()
 		}
 
 		// Check for reserved words and id
-		// **** NO CHECK FOR EOF OR NEWLN ****
 		if (isalpha(c) || c == '_') {
 
 			// Read in string
@@ -268,8 +254,6 @@ Token GetNextToken()
 				return t;
 			}
 		}
-
-		// Else must be illegal symbol
 
 		if (c == EOF) {
 			strcpy(t.lx, "End of File\0");
