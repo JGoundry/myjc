@@ -1,0 +1,5 @@
+// Comment
+
+class Josh {
+    static int x;
+}

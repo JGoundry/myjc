@@ -8,13 +8,11 @@
 
 // you can declare prototypes of parser functions below
 
-// each grammar rule is a function
-
-// classDeclar
-// memberDeclar
-// classVarDeclar
-// type
-// subroutineDeclar
+ParserInfo classDeclar();
+ParserInfo memberDeclar();
+ParserInfo classVarDeclar();
+ParserInfo type();
+ParserInfo subroutineDeclar();
 // paramList
 // subroutineBody
 // statement
@@ -33,6 +31,126 @@
 // factor
 // operand
 
+// classDeclar -> class identifier { {memberDeclar} }
+ParserInfo classDeclar() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+	
+	
+	if (t.tp == RESWORD && strcmp(t.lx, "class") == 0) {
+		GetNextToken();
+		t = GetNextToken();
+		if (t.tp == ID) { // Identifier
+			t = GetNextToken();
+			if (t.tp == SYMBOL && strcmp(t.lx, "{") == 0) { // Open bracket
+				info = memberDeclar();
+				// zero or more memberDeclars
+				if (info.er == none) { // memberDeclar
+					t = GetNextToken();
+					if (t.tp == SYMBOL && strcmp(t.lx, "}") == 0) { // Close bracket
+						info.er = none;
+					}
+					else {
+						info.tk = t;
+						info.er = closeBraceExpected;
+					}
+				}
+			}
+			else { // No open bracket
+				info.tk = t;
+				info.er = openBraceExpected;
+			}
+		}
+		else { // No identifier
+			info.tk = t;
+			info.er = idExpected;
+		}
+	}
+	else { // No class
+		info.tk = t;
+		info.er = classExpected;
+	}
+
+	return info;
+}
+
+// memberDeclar -> classVarDeclar | subroutineDeclar
+ParserInfo memberDeclar() {
+
+	ParserInfo info;
+
+	info = classVarDeclar();
+
+	if (info.er != none && info.er == classVarErr) {
+		info = subroutineDeclar();
+		if (info.er != none && info.er == subroutineDeclarErr) {
+			info.er = memberDeclarErr;
+		}
+	}
+
+	return info;
+}
+
+// classVarDeclar -> (static | field) type identifier {, identifier} ;
+ParserInfo classVarDeclar() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == RESWORD && (strcmp(t.lx, "static") == 0 ||  (strcmp(t.lx, "field") == 0))) {
+		GetNextToken();
+		info = type();
+		t = GetNextToken();
+		if (info.er == none) {
+			t = GetNextToken();
+			if (t.tp == ID) {
+				t = GetNextToken();
+				// Need to check for other IDS
+				if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
+					info.er = none;
+				}
+				else {
+					info.tk = t;
+					info.er = semicolonExpected;
+				}
+			}
+			else {
+				info.tk = t;
+				info.er = idExpected;
+			}
+		}
+	}
+	else { // No static or field
+		info.tk = t;
+		info.er = classVarErr;
+	}
+	return info;
+}
+
+// type -> int | char | boolean | identifier
+ParserInfo type() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == ID || strcmp(t.lx, "int") == 0 || strcmp(t.lx, "char") == 0 || strcmp(t.lx, "boolean") == 0) {
+			info.er = none;
+		}
+	else {
+		info.tk = t;
+		info.er = illegalType;
+	}
+
+	return info;
+}
+
+// subroutineDeclar -> (constructor | function | method) (type|void) identifier (paramList) subroutineBody
+ParserInfo subroutineDeclar() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	return info;
+
+}
+
 
 int InitParser (char* file_name)
 {
@@ -43,18 +161,15 @@ int InitParser (char* file_name)
 
 ParserInfo Parse ()
 {
-	ParserInfo pi;
+	ParserInfo info;
 
 	// implement the function
 
-	Token t;
-	t = GetNextToken();
-
-	printf("Token: %s\n", t.lx);
+	// everything is contained in class in jack (i think)
+	info = classDeclar();
 
 
-	pi.er = none;
-	return pi;
+	return info;
 }
 
 
@@ -67,8 +182,17 @@ int StopParser ()
 #ifndef TEST_PARSER
 int main ()
 {
-	InitParser("Ball.jack");
-	Parse();
+	InitParser("myTest.jack");
+
+	ParserInfo info;
+
+	info = Parse();
+
+	if (info.er == none)
+		printf("good\n");
+	else
+		printf("Error: %d", info.er);
+
 	StopParser();
 
 	return 1;
