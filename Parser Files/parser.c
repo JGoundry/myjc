@@ -43,9 +43,13 @@ ParserInfo classDeclar() {
 		if (t.tp == ID) { // Identifier
 			t = GetNextToken();
 			if (t.tp == SYMBOL && strcmp(t.lx, "{") == 0) { // Open bracket
+
+				// Zero or more memberDeclar
 				info = memberDeclar();
-				// zero or more memberDeclars
-				if (info.er == none) { // memberDeclar
+				while (info.er == none) {
+					info = memberDeclar();
+				}
+				if (info.er == memberDeclarErr) {
 					t = GetNextToken();
 					if (t.tp == SYMBOL && strcmp(t.lx, "}") == 0) { // Close bracket
 						info.er = none;
@@ -79,14 +83,20 @@ ParserInfo memberDeclar() {
 
 	ParserInfo info;
 
-	info = classVarDeclar();
 
-	if (info.er != none && info.er == classVarErr) {
-		info = subroutineDeclar();
-		if (info.er != none && info.er == subroutineDeclarErr) {
+	// Temp until subroutineDeclar implemented
+	info = classVarDeclar();
+		if (info.er == classVarErr) {
 			info.er = memberDeclarErr;
 		}
-	}
+
+	// info = classVarDeclar();
+	// if (info.er == classVarErr) {
+	// 	info = subroutineDeclar();
+	// 	if (info.er == subroutineDeclarErr) {
+	// 		info.er = memberDeclarErr;
+	// 	}
+	// }
 
 	return info;
 }
