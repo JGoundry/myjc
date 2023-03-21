@@ -115,12 +115,25 @@ ParserInfo classVarDeclar() {
 			if (t.tp == ID) {
 				t = GetNextToken();
 				// Need to check for other IDS
-				if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
-					info.er = none;
+				while (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
+					t = GetNextToken();
+					if (t.tp == ID) {
+						t = GetNextToken();
+					}
+					else { // Expected identifier
+						printf("%s", t.lx);
+						info.tk = t;
+						info.er = idExpected;
+					}
 				}
-				else {
-					info.tk = t;
-					info.er = semicolonExpected;
+				if (info.er != idExpected) {
+					if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
+						info.er = none;
+					}
+					else {
+						info.tk = t;
+						info.er = semicolonExpected;
+					}
 				}
 			}
 			else {

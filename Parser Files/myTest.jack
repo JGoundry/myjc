@@ -1,4 +1,9 @@
 // Comment
 
 class Josh {
+    static int x, z, ads;
+    field bool y;
+    field bool y;
+    field bool y;
+    field bool y;
 }
