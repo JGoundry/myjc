@@ -13,8 +13,8 @@ ParserInfo memberDeclar();
 ParserInfo classVarDeclar();
 ParserInfo type();
 ParserInfo subroutineDeclar();
-// paramList
-// subroutineBody
+ParserInfo paramList();
+ParserInfo subroutineBody();
 // statement
 // varDeclarStatement
 // letStatement
@@ -85,18 +85,18 @@ ParserInfo memberDeclar() {
 
 
 	// Temp until subroutineDeclar implemented
-	info = classVarDeclar();
-		if (info.er == classVarErr) {
-			info.er = memberDeclarErr;
-		}
-
 	// info = classVarDeclar();
-	// if (info.er == classVarErr) {
-	// 	info = subroutineDeclar();
-	// 	if (info.er == subroutineDeclarErr) {
+	// 	if (info.er == classVarErr) {
 	// 		info.er = memberDeclarErr;
 	// 	}
-	// }
+
+	info = classVarDeclar();
+	if (info.er == classVarErr) {
+		info = subroutineDeclar();
+		if (info.er == subroutineDeclarErr) {
+			info.er = memberDeclarErr;
+		}
+	}
 
 	return info;
 }
@@ -109,7 +109,6 @@ ParserInfo classVarDeclar() {
 	if (t.tp == RESWORD && (strcmp(t.lx, "static") == 0 ||  (strcmp(t.lx, "field") == 0))) {
 		GetNextToken();
 		info = type();
-		t = GetNextToken();
 		if (info.er == none) {
 			t = GetNextToken();
 			if (t.tp == ID) {
@@ -121,7 +120,6 @@ ParserInfo classVarDeclar() {
 						t = GetNextToken();
 					}
 					else { // Expected identifier
-						printf("%s", t.lx);
 						info.tk = t;
 						info.er = idExpected;
 					}
@@ -155,6 +153,7 @@ ParserInfo type() {
 	Token t = PeekNextToken();
 
 	if (t.tp == ID || strcmp(t.lx, "int") == 0 || strcmp(t.lx, "char") == 0 || strcmp(t.lx, "boolean") == 0) {
+			GetNextToken();
 			info.er = none;
 		}
 	else {
@@ -170,10 +169,132 @@ ParserInfo subroutineDeclar() {
 	ParserInfo info;
 	Token t = PeekNextToken();
 
+	if (t.tp == RESWORD && (strcmp(t.lx, "constructor") == 0 || strcmp(t.lx, "function") == 0 || strcmp(t.lx, "method") == 0)) {
+		GetNextToken();	// get peeked token
+		info = type();
+		if (info.er == illegalType) { // no type
+			t = PeekNextToken();
+			if (strcmp(t.lx, "void") == 0) { // check for void
+				info.er = none;
+			}
+		}
+		if (info.er == none) { // no errors
+			GetNextToken(); // get (type|void) that was peeked
+			t = GetNextToken(); // get identifier
+			if (t.tp == ID) { // id
+				t = GetNextToken();
+				if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {	// open bracket
+					info = paramList(); // param list
+					if (info.er == none) { // no param list error
+						t = GetNextToken();
+						if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) { // close bracket
+							info = subroutineBody(); // subroutine body
+							if (info.er == none) {
+								info.er = none;
+							}
+						}
+						else {
+							info.tk = t;
+							info.er = closeParenExpected;
+						}
+					}
+				}
+				else { // no open bracket
+					info.tk = t;
+					info.er = openParenExpected;
+				}
+			}
+			else {
+				info.tk = t;
+				info.er = idExpected;
+			}
+		}
+
+	}
+	else {
+		info.tk = t;
+		info.er = subroutineDeclarErr;
+	}
+
 	return info;
 
 }
 
+// paramList -> type identifier {, type identifier} | ε
+ParserInfo paramList() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0 ) { // empty
+		info.er = none;
+		return info;
+	}
+
+	info = type();
+	if (info.er == none) {
+		Token t = GetNextToken();
+		if (t.tp == ID) {
+			t = GetNextToken();
+			while (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
+				info = type();
+				if (info.er == none) {
+					t = GetNextToken();
+					if (t.tp == ID) {
+						t = GetNextToken();
+					}
+					else {
+						info.tk = t;
+						info.er = idExpected;
+						break;
+					}
+				}
+				else {
+					break;
+				}
+			}
+		}
+		else {
+			info.tk = t;
+			info.er = idExpected;
+		}
+	}
+	return info;
+}
+
+// subroutineBody -> { {statement} }
+ParserInfo subroutineBody() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == SYMBOL && strcmp(t.lx, "{")  == 0) {
+		GetNextToken(); // get peeked
+
+		// statement zero or more loop
+		
+		t = GetNextToken(); // get closing brace
+		if (t.tp == SYMBOL && strcmp(t.lx, "}")  == 0) {
+			info.er = none;
+		}
+		else {
+			info.tk = t;
+			info.er = closeBraceExpected;
+		}
+	}
+	else {
+		info.tk = t;
+		info.er = openBraceExpected;
+	}
+	
+	return info;
+}
+
+// statement -> varDeclarStatement | letStatemnt | ifStatement | whileStatement | doStatement | returnStatemnt
+ParserInfo statement() {
+	ParserInfo info;
+	info.er = none;
+
+	return info;
+}
 
 int InitParser (char* file_name)
 {

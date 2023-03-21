@@ -6,4 +6,5 @@ class Josh {
     field bool y;
     field bool y;
     field bool y;
+    constructor void Josh() {}
 }
