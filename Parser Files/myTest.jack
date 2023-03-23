@@ -11,5 +11,10 @@ class Josh {
         var int x, y;
         var int y;
         let y = 5;
+        let y = 5 * 10;
+        let y = 5 * 10 + sad.new[4;
+        let y = 5 | 2;
+        let y[2] = 5;
+
     }
 }

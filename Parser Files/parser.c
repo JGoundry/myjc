@@ -269,11 +269,13 @@ ParserInfo subroutineBody() {
 
 		// check for statements
 		info = statement();
-		while (info.er == none) {
+		t = PeekNextToken();
+		while (t.tp != SYMBOL && strcmp(t.lx, "}") != 0 && info.er == none) {
 			info = statement();
+			t = PeekNextToken();
 		}
 
-		if (info.er == syntaxError) { // no more statements
+		if (info.er == none) { // no more statements
 			t = GetNextToken(); // get closing brace
 			if (t.tp == SYMBOL && strcmp(t.lx, "}")  == 0) {
 				info.er = none;
@@ -362,9 +364,9 @@ ParserInfo letStatement() {
 		GetNextToken(); // get peeked
 		t = GetNextToken(); // get identifier
 		if (t.tp == ID) {
-			t = GetNextToken(); // get next
+			t = PeekNextToken(); // get next
 			if (t.tp == SYMBOL && strcmp(t.lx, "[") == 0) {
-
+				GetNextToken(); // get peeked
 				info = expression();
 				if (info.er == none) {
 					t = GetNextToken(); // get closing bracket
@@ -374,24 +376,24 @@ ParserInfo letStatement() {
 						return info;
 					}
 				}
-				t = GetNextToken(); // get equal sign
-				if (t.tp == SYMBOL && strcmp(t.lx, "=") == 0) {
-					info = expression();
-					if (info.er == none) {
-						t = GetNextToken(); // get semicolon
-						if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
-							info.er = none;
-						}
-						else {
-							info.tk = t;
-							info.er = semicolonExpected;
-						}
+			}
+			t = GetNextToken(); // get equal sign
+			if (t.tp == SYMBOL && strcmp(t.lx, "=") == 0) {
+				info = expression();
+				if (info.er == none) {
+					t = GetNextToken(); // get semicolon
+					if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
+						info.er = none;
+					}
+					else {
+						info.tk = t;
+						info.er = semicolonExpected;
 					}
 				}
-				else {
-					info.tk = t;
-					info.er = equalExpected;
-				}
+			}
+			else {
+				info.tk = t;
+				info.er = equalExpected;
 			}
 		}
 		else {
@@ -534,7 +536,7 @@ ParserInfo factor() {
 ParserInfo operand() {
 	ParserInfo info;
 	Token t = PeekNextToken();
-
+	
 	if (t.tp == INT) {
 		GetNextToken(); // get peeked
 		info.er = none;
@@ -547,6 +549,7 @@ ParserInfo operand() {
 			t = GetNextToken(); // get identifier
 			if (t.tp == ID) {
 				info.er = none;
+				t = PeekNextToken();
 			}
 			else {
 				info.tk = t;
