@@ -5,6 +5,11 @@ class Josh {
     field bool y;
     field bool y;
     field bool y;
+    constructor void Josh() { /* new */ }
     field bool y;
-    constructor void Josh() {}
+    constructor void Josh() {
+        var int x, y;
+        var int y;
+        let y = 5;
+    }
 }

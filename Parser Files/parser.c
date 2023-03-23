@@ -15,28 +15,27 @@ ParserInfo type();
 ParserInfo subroutineDeclar();
 ParserInfo paramList();
 ParserInfo subroutineBody();
-// statement
-// varDeclarStatement
-// letStatement
-// ifStatement
-// whileStatement
-// doStatement
-// subroutineCall
-// expressionList
-// returnStatement
-// expression
-// relationalExpression
-// ArithmeticExpression
-// term
-// factor
-// operand
+ParserInfo statement();
+ParserInfo varDeclarStatement();
+ParserInfo letStatement();
+ParserInfo ifStatement();
+ParserInfo whileStatement();
+ParserInfo doStatement();
+ParserInfo subroutineCall();
+ParserInfo expressionList();
+ParserInfo returnStatement();
+ParserInfo expression();
+ParserInfo relationalExpression();
+ParserInfo ArithmeticExpression();
+ParserInfo term();
+ParserInfo factor();
+ParserInfo operand();
 
 // classDeclar -> class identifier { {memberDeclar} }
 ParserInfo classDeclar() {
 	ParserInfo info;
 	Token t = PeekNextToken();
-	
-	
+
 	if (t.tp == RESWORD && strcmp(t.lx, "class") == 0) {
 		GetNextToken();
 		t = GetNextToken();
@@ -82,13 +81,6 @@ ParserInfo classDeclar() {
 ParserInfo memberDeclar() {
 
 	ParserInfo info;
-
-
-	// Temp until subroutineDeclar implemented
-	// info = classVarDeclar();
-	// 	if (info.er == classVarErr) {
-	// 		info.er = memberDeclarErr;
-	// 	}
 
 	info = classVarDeclar();
 	if (info.er == classVarErr) {
@@ -268,16 +260,28 @@ ParserInfo subroutineBody() {
 
 	if (t.tp == SYMBOL && strcmp(t.lx, "{")  == 0) {
 		GetNextToken(); // get peeked
-
-		// statement zero or more loop
-		
-		t = GetNextToken(); // get closing brace
-		if (t.tp == SYMBOL && strcmp(t.lx, "}")  == 0) {
+		t = PeekNextToken();
+		if (t.tp == SYMBOL && strcmp(t.lx, "}")  == 0) { // empty
 			info.er = none;
+			t = GetNextToken(); // get closing brace
+			return info;
 		}
-		else {
-			info.tk = t;
-			info.er = closeBraceExpected;
+
+		// check for statements
+		info = statement();
+		while (info.er == none) {
+			info = statement();
+		}
+
+		if (info.er == syntaxError) { // no more statements
+			t = GetNextToken(); // get closing brace
+			if (t.tp == SYMBOL && strcmp(t.lx, "}")  == 0) {
+				info.er = none;
+			}
+			else {
+				info.tk = t;
+				info.er = closeBraceExpected;
+			}
 		}
 	}
 	else {
@@ -291,19 +295,332 @@ ParserInfo subroutineBody() {
 // statement -> varDeclarStatement | letStatemnt | ifStatement | whileStatement | doStatement | returnStatemnt
 ParserInfo statement() {
 	ParserInfo info;
-	info.er = none;
+	// Token t = PeekNextToken();
+
+	info = varDeclarStatement();
+	if (info.er == syntaxError) {
+		info = letStatement();
+	}
 
 	return info;
 }
 
-int InitParser (char* file_name)
+// varDeclarStatement -> var type identifier { , identifier } ;
+ParserInfo varDeclarStatement() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == RESWORD && strcmp(t.lx, "var") == 0) {
+		GetNextToken(); // get peeked
+		info = type(); // will get next if no error
+		if (info.er == none) {
+			t = GetNextToken(); // get identifier
+			if (t.tp == ID) {
+				t = GetNextToken(); // get next
+				while (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
+					t = GetNextToken();
+					if (t.tp == ID) {
+						t = GetNextToken();
+					}
+					else {
+						info.tk = t;
+						info.er = idExpected;
+						return info;
+					}
+				}
+				if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
+					info.er = none;
+				}
+				else {
+					info.tk = t;
+					info.er = semicolonExpected;
+				}
+			}
+			else {
+				info.tk = t;
+				info.er = idExpected;
+			}
+		}
+		else {
+			info.tk = t;
+			info.er = illegalType;
+		}
+	}
+	else { // no var keyword
+		info.er = syntaxError;
+	}
+
+	return info;
+}
+
+// letStatemnt -> let identifier [ [ expression ] ] = expression ;
+ParserInfo letStatement() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == RESWORD && strcmp(t.lx, "let") == 0) {
+		GetNextToken(); // get peeked
+		t = GetNextToken(); // get identifier
+		if (t.tp == ID) {
+			t = GetNextToken(); // get next
+			if (t.tp == SYMBOL && strcmp(t.lx, "[") == 0) {
+
+				info = expression();
+				if (info.er == none) {
+					t = GetNextToken(); // get closing bracket
+					if (!(t.tp == SYMBOL && strcmp(t.lx, "]") == 0)) { // no close brace
+						info.tk = t;
+						info.er = closeBracketExpected;
+						return info;
+					}
+				}
+				t = GetNextToken(); // get equal sign
+				if (t.tp == SYMBOL && strcmp(t.lx, "=") == 0) {
+					info = expression();
+					if (info.er == none) {
+						t = GetNextToken(); // get semicolon
+						if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
+							info.er = none;
+						}
+						else {
+							info.tk = t;
+							info.er = semicolonExpected;
+						}
+					}
+				}
+				else {
+					info.tk = t;
+					info.er = equalExpected;
+				}
+			}
+		}
+		else {
+			info.tk = t;
+			info.er = idExpected;
+		}
+	}	
+	else { // no let keyword
+		info.tk = t;
+		info.er = syntaxError;
+	}
+	return info;
+}
+
+
+ParserInfo ifStatement();
+ParserInfo whileStatement();
+ParserInfo doStatement();
+
+// subroutineCall -> identifier [ . identifier ] ( expressionList )
+
+// expressionList -> expression { , expression } | ε
+ParserInfo expressionList() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0 ) { // empty
+		info.er = none;
+		return info;
+	}
+
+	info = expression();
+	while (info.er == none) {
+		Token t = PeekNextToken();
+		if (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
+			GetNextToken(); // get peeked
+			info = expression();
+		}
+		else {
+			break;
+		}
+	}
+
+	return info;
+}
+
+ParserInfo returnStatement();
+
+// expression -> relationalExpression { ( & | | ) relationalExpression }
+ParserInfo expression() {
+	ParserInfo info;
+
+	info = relationalExpression();
+	while (info.er == none) {
+		Token t = PeekNextToken();
+		if (t.tp == SYMBOL && (strcmp(t.lx, "&") == 0 || strcmp(t.lx, "|") == 0)) {
+			GetNextToken(); // get peeked
+			info = relationalExpression();
+		}
+		else {
+			break;
+		}
+	}
+
+	return info;
+}
+
+// relationalExpression -> ArithmeticExpression { ( = | > | < ) ArithmeticExpression }
+ParserInfo relationalExpression() {
+	ParserInfo info;
+
+	info = ArithmeticExpression();
+	while (info.er == none) {
+		Token t = PeekNextToken();
+		if (t.tp == SYMBOL && (strcmp(t.lx, "=") == 0 || strcmp(t.lx, ">") == 0 || strcmp(t.lx, "<") == 0)) {
+			GetNextToken(); // get peeked
+			info = ArithmeticExpression();
+		}
+		else {
+			break;
+		}
+	}
+	return info;
+}
+
+
+// ArithmeticExpression -> term { ( + | - ) term }
+ParserInfo ArithmeticExpression() {
+	ParserInfo info;
+
+	info = term();
+	while (info.er == none) {
+		Token t = PeekNextToken();
+		if (t.tp == SYMBOL && (strcmp(t.lx, "+") == 0 || strcmp(t.lx, "-") == 0)) {
+			GetNextToken(); // get peeked
+			info = term();
+		}
+		else {
+			break;
+		}
+	}
+	return info;
+}
+
+// term -> factor { ( * | / ) factor }
+ParserInfo term() {
+	ParserInfo info;
+
+	info = factor();
+	while (info.er == none) {
+		Token t = PeekNextToken();
+		if (t.tp == SYMBOL && (strcmp(t.lx, "*") == 0 || strcmp(t.lx, "/") == 0)) {
+			GetNextToken(); // get peeked
+			info = factor();
+		}
+		else {
+			break;
+		}
+	}
+	return info;
+}
+
+// factor -> ( - | ~ | ε ) operand
+ParserInfo factor() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == SYMBOL && (strcmp(t.lx, "-") == 0 || strcmp(t.lx, "~") == 0)) {
+		GetNextToken(); // get peeked
+		info = operand();
+	}
+	else {
+		info = operand();
+	}
+
+	return info;
+}
+
+// operand -> integerConstant | identifier [.identifier ] [ [ expression ] | (expressionList ) ] | (expression) | stringLiteral | true | false | null | this
+ParserInfo operand() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == INT) {
+		GetNextToken(); // get peeked
+		info.er = none;
+	}
+	else if (t.tp == ID) {
+		GetNextToken(); // get peeked
+		t = PeekNextToken();
+		if (t.tp == SYMBOL  && strcmp(t.lx, ".") == 0) {
+			GetNextToken(); // get peeked
+			t = GetNextToken(); // get identifier
+			if (t.tp == ID) {
+				info.er = none;
+			}
+			else {
+				info.tk = t;
+				info.er = idExpected;
+				return info;
+			}
+		}
+		if (t.tp == SYMBOL && strcmp(t.lx, "[") == 0) {
+			GetNextToken(); // get peeked
+			info = expression();
+			if (info.er == none) {
+				t = GetNextToken(); // get closing bracket
+				if (t.tp == SYMBOL && strcmp(t.lx, "]") == 0) {
+					info.er = none;
+				}
+				else {
+					info.tk = t;
+					info.er = closeBracketExpected;
+				}
+			}
+		}
+		else if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {
+			GetNextToken(); // get peeked
+			info = expressionList();
+			if (info.er == none) {
+				t = GetNextToken(); // get closing brace
+				if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
+					info.er = none;
+				}
+				else {
+					info.tk = t;
+					info.er = closeBraceExpected;
+				}
+			}
+		}
+	}
+	else if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {
+		GetNextToken(); // get peeked
+		info = expression();
+		if (info.er == none) {
+			t = GetNextToken(); // get closing brace
+			if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
+				info.er = none;
+			}
+			else {
+				info.tk = t;
+				info.er = closeBraceExpected;
+			}
+		}
+	}
+	else if (t.tp == STRING) {
+		info.er = none;
+	}
+	else if (t.tp == RESWORD && (strcmp(t.lx, "true") == 0 || strcmp(t.lx, "false") == 0 || strcmp(t.lx, "null") == 0 || strcmp(t.lx, "this") == 0)) {
+		info.er = none;
+	}
+	else {
+		info.tk = t;
+		info.er = syntaxError;
+	}
+
+	return info;
+}
+
+
+
+int InitParser(char* file_name)
 {
 	InitLexer(file_name);
 
 	return 1;
 }
 
-ParserInfo Parse ()
+ParserInfo Parse()
 {
 	ParserInfo info;
 
@@ -317,14 +634,14 @@ ParserInfo Parse ()
 }
 
 
-int StopParser ()
+int StopParser()
 {
 	StopLexer();
 	return 1;
 }
 
 #ifndef TEST_PARSER
-int main ()
+int main()
 {
 	InitParser("myTest.jack");
 
