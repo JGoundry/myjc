@@ -177,7 +177,7 @@ ParserInfo subroutineDeclar() {
 				t = GetNextToken();
 				if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {	// open bracket
 					info = paramList(); // param list
-					if (info.er == none) { // no param list error
+					if (info.er == none || info.er == illegalType) { // no param list error
 						t = GetNextToken();
 						if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) { // close bracket
 							info = subroutineBody(); // subroutine body
@@ -244,29 +244,6 @@ ParserInfo paramList() {
 					}
 				}
 			}
-
-
-			// t = PeekNextToken();
-			// while (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
-			// 	GetNextToken(); // get peeked
-			// 	info = type();
-			// 	if (info.er == none) {
-			// 		t = GetNextToken();
-			// 		if (t.tp == ID) {
-			// 			t = GetNextToken();
-			// 		}
-			// 		else {
-			// 			info.tk = t;
-			// 			info.er = idExpected;
-			// 			break;
-			// 		}
-			// 	}
-			// 	else {
-			// 		break;
-			// 	}
-			// }
-
-
 		}
 		else {
 			info.tk = t;
