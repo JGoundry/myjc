@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "parser.h": "c",
+        "locale": "c",
+        "__locale": "c",
+        "bitset": "c"
+    }
+}
