@@ -841,7 +841,7 @@ ParserInfo operand() {
 			}
 			else {
 				info.tk = t;
-				info.er = closeBraceExpected;
+				info.er = closeParenExpected;
 			}
 		}
 	}
