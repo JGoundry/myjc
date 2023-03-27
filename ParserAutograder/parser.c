@@ -322,26 +322,23 @@ ParserInfo statement() {
 	ParserInfo info;
 	Token t = PeekNextToken();
 
-	while (t.tp == RESWORD && (strcmp(t.lx, "var") == 0 || strcmp(t.lx, "let") == 0) || strcmp(t.lx, "if") == 0 || strcmp(t.lx, "while") == 0 || strcmp(t.lx, "do") == 0 || strcmp(t.lx, "return") == 0) {
-		if (t.tp == RESWORD && strcmp(t.lx, "var") == 0) {
-			info = varDeclarStatement();
-		}
-		else if (t.tp == RESWORD && strcmp(t.lx, "let") == 0) {
-			info = letStatement();
-		}
-		else if (t.tp == RESWORD && strcmp(t.lx, "if") == 0) {
-			info = ifStatement();
-		}
-		else if (t.tp == RESWORD && strcmp(t.lx, "while") == 0) {
-			info = whileStatement();
-		}
-		else if (t.tp == RESWORD && strcmp(t.lx, "do") == 0) {
-			info = doStatement();
-		}
-		else if (t.tp == RESWORD && strcmp(t.lx, "return") == 0) {
-			info = returnStatement();
-		}
-		t = PeekNextToken();
+	if (t.tp == RESWORD && strcmp(t.lx, "var") == 0) {
+		info = varDeclarStatement();
+	}
+	else if (t.tp == RESWORD && strcmp(t.lx, "let") == 0) {
+		info = letStatement();
+	}
+	else if (t.tp == RESWORD && strcmp(t.lx, "if") == 0) {
+		info = ifStatement();
+	}
+	else if (t.tp == RESWORD && strcmp(t.lx, "while") == 0) {
+		info = whileStatement();
+	}
+	else if (t.tp == RESWORD && strcmp(t.lx, "do") == 0) {
+		info = doStatement();
+	}
+	else if (t.tp == RESWORD && strcmp(t.lx, "return") == 0) {
+		info = returnStatement();
 	}
 
 	return info;
