@@ -168,10 +168,10 @@ ParserInfo subroutineDeclar() {
 			t = PeekNextToken();
 			if (strcmp(t.lx, "void") == 0) { // check for void
 				info.er = none;
+				GetNextToken();
 			}
 		}
 		if (info.er == none) { // no errors
-			GetNextToken(); // get (type|void) that was peeked
 			t = GetNextToken(); // get identifier
 			if (t.tp == ID) { // id
 				t = GetNextToken();
@@ -226,24 +226,47 @@ ParserInfo paramList() {
 	if (info.er == none) {
 		Token t = GetNextToken();
 		if (t.tp == ID) {
-			t = GetNextToken();
-			while (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
+
+			t = PeekNextToken();
+			while (info.er == none && t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
+				GetNextToken(); // get peeked comma
+
 				info = type();
+
 				if (info.er == none) {
 					t = GetNextToken();
 					if (t.tp == ID) {
-						t = GetNextToken();
+						t = PeekNextToken();
 					}
 					else {
 						info.tk = t;
 						info.er = idExpected;
-						break;
 					}
 				}
-				else {
-					break;
-				}
 			}
+
+
+			// t = PeekNextToken();
+			// while (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
+			// 	GetNextToken(); // get peeked
+			// 	info = type();
+			// 	if (info.er == none) {
+			// 		t = GetNextToken();
+			// 		if (t.tp == ID) {
+			// 			t = GetNextToken();
+			// 		}
+			// 		else {
+			// 			info.tk = t;
+			// 			info.er = idExpected;
+			// 			break;
+			// 		}
+			// 	}
+			// 	else {
+			// 		break;
+			// 	}
+			// }
+
+
 		}
 		else {
 			info.tk = t;
