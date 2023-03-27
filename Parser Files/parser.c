@@ -514,14 +514,123 @@ ParserInfo ifStatement() {
 }
 
 // whileStatement -> while ( expression ) { {statement} }
-ParserInfo whileStatement();
+ParserInfo whileStatement() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == RESWORD && strcmp(t.lx, "while") == 0) {
+		GetNextToken(); // get peeked
+		t = GetNextToken();
+		if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {
+			info = expression();
+			if (info.er == none) {
+				t = GetNextToken();
+				if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
+					t = GetNextToken();
+					if (t.tp == SYMBOL && strcmp(t.lx, "{") == 0) {
+						t = PeekNextToken();
+						if (t.tp != SYMBOL && strcmp(t.lx, "}") != 0) { // statement here
+							info = statement();
+							t = PeekNextToken();
+							while (info.er == none && t.tp != SYMBOL && strcmp(t.lx, "}") != 0) {
+								info = statement();
+								t = PeekNextToken();
+							}
+							if (info.er != none) {
+								return info;
+							}
+						}
+						t = GetNextToken(); // get closing brace
+						if (t.tp == SYMBOL && strcmp(t.lx, "}") == 0) {
+							info.er = none;
+						}
+						else {
+							info.tk = t;
+							info.er = closeBraceExpected;
+						}
+					}
+					else {
+						info.tk = t;
+						info.er = openBraceExpected;
+					}
+				}
+				else {
+					info.tk = t;
+					info.er = closeParenExpected;
+				}
+			}
+		}
+		else {
+			info.tk = t;
+			info.er = openParenExpected;
+		}
+	}
+	return info;
+}
 
 // doStatement -> do subroutineCall ;
-ParserInfo doStatement();
+ParserInfo doStatement() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == RESWORD && strcmp(t.lx, "do") == 0) {
+		GetNextToken(); // get peeked
+		info = subroutineCall();
+		if (info.er == none) {
+			t = GetNextToken();
+			if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
+				info.er = none;
+			}
+			else {
+				info.tk = t;
+				info.er = semicolonExpected;
+			}
+		}
+	}
+	return info;
+}
 
 
 // subroutineCall -> identifier [ . identifier ] ( expressionList )
-ParserInfo subroutineCall();
+ParserInfo subroutineCall() {
+	ParserInfo info;
+	Token t = PeekNextToken();
+
+	if (t.tp == ID) {
+		GetNextToken(); // get peeked
+		t = PeekNextToken();
+
+		if (t.tp == SYMBOL && strcmp(t.lx, ".") == 0) {
+			GetNextToken(); // get peeked
+			t = GetNextToken();
+			if (t.tp != ID) {
+				info.tk = t;
+				info.er = idExpected;
+				return info;
+			}
+		}
+		t = GetNextToken();
+		if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {
+			info = expressionList();
+			if (info.er == none) {
+				t = GetNextToken();
+				if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
+					info.er = none;
+				}
+				else {
+					info.tk = t;
+					info.er = closeParenExpected;
+				}
+			}
+		}
+		else {
+			info.tk = t;
+			info.er = openParenExpected;
+		}
+	}
+
+	return info;
+}
 
 // expressionList -> expression { , expression } | ε
 ParserInfo expressionList() {
