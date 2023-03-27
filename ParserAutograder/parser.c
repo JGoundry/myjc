@@ -625,6 +625,10 @@ ParserInfo subroutineCall() {
 			info.er = openParenExpected;
 		}
 	}
+	else {
+		info.tk = t;
+		info.er = idExpected;
+	}
 
 	return info;
 }
