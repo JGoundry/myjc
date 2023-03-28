@@ -3,6 +3,7 @@
         "parser.h": "c",
         "locale": "c",
         "__locale": "c",
-        "bitset": "c"
+        "bitset": "c",
+        "stdio.h": "c"
     }
 }
