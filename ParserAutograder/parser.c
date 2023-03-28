@@ -35,12 +35,27 @@ ParserInfo operand();
 ParserInfo classDeclar() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && strcmp(t.lx, "class") == 0) {
 		GetNextToken();
 		t = GetNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == ID) { // Identifier
 			t = GetNextToken();
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == SYMBOL && strcmp(t.lx, "{") == 0) { // Open bracket
 
 				// Zero or more memberDeclar
@@ -50,6 +65,11 @@ ParserInfo classDeclar() {
 				}
 				if (info.er == memberDeclarErr) {
 					t = GetNextToken();
+					if (t.tp == ERR) {
+						info.tk = t;
+						info.er = lexerErr;
+						return info;
+					}
 					if (t.tp == SYMBOL && strcmp(t.lx, "}") == 0) { // Close bracket
 						info.er = none;
 					}
@@ -97,19 +117,44 @@ ParserInfo memberDeclar() {
 ParserInfo classVarDeclar() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && (strcmp(t.lx, "static") == 0 ||  (strcmp(t.lx, "field") == 0))) {
 		GetNextToken();
 		info = type();
 		if (info.er == none) {
 			t = GetNextToken();
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == ID) {
 				t = GetNextToken();
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 				// Need to check for other IDS
 				while (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
 					t = GetNextToken();
+					if (t.tp == ERR) {
+						info.tk = t;
+						info.er = lexerErr;
+						return info;
+					}
 					if (t.tp == ID) {
 						t = GetNextToken();
+						if (t.tp == ERR) {
+							info.tk = t;
+							info.er = lexerErr;
+							return info;
+						}
 					}
 					else { // Expected identifier
 						info.tk = t;
@@ -143,6 +188,11 @@ ParserInfo classVarDeclar() {
 ParserInfo type() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == ID || strcmp(t.lx, "int") == 0 || strcmp(t.lx, "char") == 0 || strcmp(t.lx, "boolean") == 0) {
 			GetNextToken();
@@ -160,12 +210,22 @@ ParserInfo type() {
 ParserInfo subroutineDeclar() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && (strcmp(t.lx, "constructor") == 0 || strcmp(t.lx, "function") == 0 || strcmp(t.lx, "method") == 0)) {
 		GetNextToken();	// get peeked token
 		info = type();
 		if (info.er == illegalType) { // no type
 			t = PeekNextToken();
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (strcmp(t.lx, "void") == 0) { // check for void
 				info.er = none;
 				GetNextToken();
@@ -173,12 +233,27 @@ ParserInfo subroutineDeclar() {
 		}
 		if (info.er == none) { // no errors
 			t = GetNextToken(); // get identifier
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == ID) { // id
 				t = GetNextToken();
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 				if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {	// open bracket
 					info = paramList(); // param list
 					if (info.er == none || info.er == illegalType) { // no param list error
 						t = GetNextToken();
+						if (t.tp == ERR) {
+							info.tk = t;
+							info.er = lexerErr;
+							return info;
+						}
 						if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) { // close bracket
 							info = subroutineBody(); // subroutine body
 							if (info.er == none) {
@@ -216,6 +291,11 @@ ParserInfo subroutineDeclar() {
 ParserInfo paramList() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0 ) { // empty
 		info.er = none;
@@ -225,9 +305,19 @@ ParserInfo paramList() {
 	info = type();
 	if (info.er == none) {
 		Token t = GetNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == ID) {
 
 			t = PeekNextToken();
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			while (info.er == none && t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
 				GetNextToken(); // get peeked comma
 
@@ -235,8 +325,18 @@ ParserInfo paramList() {
 
 				if (info.er == none) {
 					t = GetNextToken();
+					if (t.tp == ERR) {
+						info.tk = t;
+						info.er = lexerErr;
+						return info;
+					}
 					if (t.tp == ID) {
 						t = PeekNextToken();
+						if (t.tp == ERR) {
+							info.tk = t;
+							info.er = lexerErr;
+							return info;
+						}
 					}
 					else {
 						info.tk = t;
@@ -257,26 +357,56 @@ ParserInfo paramList() {
 ParserInfo subroutineBody() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == SYMBOL && strcmp(t.lx, "{")  == 0) {
 		GetNextToken(); // get peeked
 		t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL && strcmp(t.lx, "}")  == 0) { // empty
 			info.er = none;
 			t = GetNextToken(); // get closing brace
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			return info;
 		}
 
 		// check for statements
 		info = statement();
 		t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		while (t.tp != SYMBOL && strcmp(t.lx, "}") != 0 && info.er == none) {
 			info = statement();
 			t = PeekNextToken();
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 		}
 
 		if (info.er == none) { // no more statements
 			t = GetNextToken(); // get closing brace
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == SYMBOL && strcmp(t.lx, "}")  == 0) {
 				info.er = none;
 			}
@@ -298,6 +428,11 @@ ParserInfo subroutineBody() {
 ParserInfo statement() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && strcmp(t.lx, "var") == 0) {
 		info = varDeclarStatement();
@@ -325,18 +460,43 @@ ParserInfo statement() {
 ParserInfo varDeclarStatement() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && strcmp(t.lx, "var") == 0) {
 		GetNextToken(); // get peeked
 		info = type(); // will get next if no error
 		if (info.er == none) {
 			t = GetNextToken(); // get identifier
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == ID) {
 				t = GetNextToken(); // get next
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 				while (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
 					t = GetNextToken();
+					if (t.tp == ERR) {
+						info.tk = t;
+						info.er = lexerErr;
+						return info;
+					}
 					if (t.tp == ID) {
 						t = GetNextToken();
+						if (t.tp == ERR) {
+							info.tk = t;
+							info.er = lexerErr;
+							return info;
+						}
 					}
 					else {
 						info.tk = t;
@@ -373,17 +533,37 @@ ParserInfo varDeclarStatement() {
 ParserInfo letStatement() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && strcmp(t.lx, "let") == 0) {
 		GetNextToken(); // get peeked
 		t = GetNextToken(); // get identifier
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == ID) {
 			t = PeekNextToken(); // get next
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == SYMBOL && strcmp(t.lx, "[") == 0) {
 				GetNextToken(); // get peeked
 				info = expression();
 				if (info.er == none) {
 					t = GetNextToken(); // get closing bracket
+					if (t.tp == ERR) {
+						info.tk = t;
+						info.er = lexerErr;
+						return info;
+					}
 					if (!(t.tp == SYMBOL && strcmp(t.lx, "]") == 0)) { // no close brace
 						info.tk = t;
 						info.er = closeBracketExpected;
@@ -392,10 +572,20 @@ ParserInfo letStatement() {
 				}
 			}
 			t = GetNextToken(); // get equal sign
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == SYMBOL && strcmp(t.lx, "=") == 0) {
 				info = expression();
 				if (info.er == none) {
 					t = GetNextToken(); // get semicolon
+					if (t.tp == ERR) {
+						info.tk = t;
+						info.er = lexerErr;
+						return info;
+					}
 					if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
 						info.er = none;
 					}
@@ -426,49 +616,119 @@ ParserInfo letStatement() {
 ParserInfo ifStatement() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && strcmp(t.lx, "if") == 0) {
 		GetNextToken(); // get peeked
 		t = GetNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {
 			info = expression();
 			if (info.er == none) {
 				t = GetNextToken();
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 				if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
 					t = GetNextToken();
+					if (t.tp == ERR) {
+						info.tk = t;
+						info.er = lexerErr;
+						return info;
+					}
 					if (t.tp == SYMBOL && strcmp(t.lx, "{") == 0) {
 						t = PeekNextToken();
+						if (t.tp == ERR) {
+							info.tk = t;
+							info.er = lexerErr;
+							return info;
+						}
 						if (t.tp != SYMBOL && strcmp(t.lx, "}") != 0) { // statement here
 							info = statement();
 							t = PeekNextToken();
+							if (t.tp == ERR) {
+								info.tk = t;
+								info.er = lexerErr;
+								return info;
+							}
 							while (info.er == none && t.tp != SYMBOL && strcmp(t.lx, "}") != 0) {
 								info = statement();
 								t = PeekNextToken();
+								if (t.tp == ERR) {
+									info.tk = t;
+									info.er = lexerErr;
+									return info;
+								}
 							}
 							if (info.er != none) {
 								return info;
 							}
 						}
 						t = GetNextToken(); // get closing brace
+						if (t.tp == ERR) {
+							info.tk = t;
+							info.er = lexerErr;
+							return info;
+						}
 						if (t.tp == SYMBOL && strcmp(t.lx, "}") == 0) {
 							t = PeekNextToken();
+							if (t.tp == ERR) {
+								info.tk = t;
+								info.er = lexerErr;
+								return info;
+							}
 							if (t.tp == RESWORD && strcmp(t.lx, "else") == 0) {
 								GetNextToken(); // get peeked
 								t = GetNextToken();
+								if (t.tp == ERR) {
+									info.tk = t;
+									info.er = lexerErr;
+									return info;
+								}
 								if (t.tp == SYMBOL && strcmp(t.lx, "{") == 0) {
 									t = PeekNextToken();
+									if (t.tp == ERR) {
+										info.tk = t;
+										info.er = lexerErr;
+										return info;
+									}
 									if (t.tp != SYMBOL && strcmp(t.lx, "}") != 0) { // statement here
 										info = statement();
 										t = PeekNextToken();
+										if (t.tp == ERR) {
+											info.tk = t;
+											info.er = lexerErr;
+											return info;
+										}
 										while (info.er == none && t.tp != SYMBOL && strcmp(t.lx, "}") != 0) {
 											info = statement();
 											t = PeekNextToken();
+											if (t.tp == ERR) {
+												info.tk = t;
+												info.er = lexerErr;
+												return info;
+											}
 										}
 										if (info.er != none) {
 											return info;
 										}
 									}
 									t = GetNextToken(); // get closing brace
+									if (t.tp == ERR) {
+										info.tk = t;
+										info.er = lexerErr;
+										return info;
+									}
 									if (t.tp == SYMBOL && strcmp(t.lx, "}") == 0) {
 										info.er = none;
 									}
@@ -514,30 +774,70 @@ ParserInfo ifStatement() {
 ParserInfo whileStatement() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && strcmp(t.lx, "while") == 0) {
 		GetNextToken(); // get peeked
 		t = GetNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {
 			info = expression();
 			if (info.er == none) {
 				t = GetNextToken();
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 				if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
 					t = GetNextToken();
+					if (t.tp == ERR) {
+						info.tk = t;
+						info.er = lexerErr;
+						return info;
+					}
 					if (t.tp == SYMBOL && strcmp(t.lx, "{") == 0) {
 						t = PeekNextToken();
+						if (t.tp == ERR) {
+							info.tk = t;
+							info.er = lexerErr;
+							return info;
+						}
 						if (t.tp != SYMBOL && strcmp(t.lx, "}") != 0) { // statement here
 							info = statement();
 							t = PeekNextToken();
+							if (t.tp == ERR) {
+								info.tk = t;
+								info.er = lexerErr;
+								return info;
+							}
 							while (info.er == none && t.tp != SYMBOL && strcmp(t.lx, "}") != 0) {
 								info = statement();
 								t = PeekNextToken();
+								if (t.tp == ERR) {
+									info.tk = t;
+									info.er = lexerErr;
+									return info;
+								}
 							}
 							if (info.er != none) {
 								return info;
 							}
 						}
 						t = GetNextToken(); // get closing brace
+						if (t.tp == ERR) {
+							info.tk = t;
+							info.er = lexerErr;
+							return info;
+						}
 						if (t.tp == SYMBOL && strcmp(t.lx, "}") == 0) {
 							info.er = none;
 						}
@@ -569,12 +869,22 @@ ParserInfo whileStatement() {
 ParserInfo doStatement() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && strcmp(t.lx, "do") == 0) {
 		GetNextToken(); // get peeked
 		info = subroutineCall();
 		if (info.er == none) {
 			t = GetNextToken();
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
 				info.er = none;
 			}
@@ -592,14 +902,29 @@ ParserInfo doStatement() {
 ParserInfo subroutineCall() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == ID) {
 		GetNextToken(); // get peeked
 		t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 
 		if (t.tp == SYMBOL && strcmp(t.lx, ".") == 0) {
 			GetNextToken(); // get peeked
 			t = GetNextToken();
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp != ID) {
 				info.tk = t;
 				info.er = idExpected;
@@ -607,10 +932,20 @@ ParserInfo subroutineCall() {
 			}
 		}
 		t = GetNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL && strcmp(t.lx, "(") == 0) {
 			info = expressionList();
 			if (info.er == none) {
 				t = GetNextToken();
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 				if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
 					info.er = none;
 				}
@@ -637,6 +972,11 @@ ParserInfo subroutineCall() {
 ParserInfo expressionList() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0 ) { // empty
 		info.er = none;
@@ -646,6 +986,11 @@ ParserInfo expressionList() {
 	info = expression();
 	// while (info.er == none) {
 	// 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 	// 	if (t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
 	// 		GetNextToken(); // get peeked
 	// 		info = expression();
@@ -656,10 +1001,20 @@ ParserInfo expressionList() {
 	// }
 
 	t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 	while (info.er == none && t.tp == SYMBOL && strcmp(t.lx, ",") == 0) {
 		GetNextToken(); // get peeked comma
 		info = expression();
 		t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 	}
 
 	return info;
@@ -669,6 +1024,11 @@ ParserInfo expressionList() {
 ParserInfo returnStatement() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == RESWORD && strcmp(t.lx, "return") == 0) {
 		GetNextToken(); // get peeked
@@ -677,6 +1037,11 @@ ParserInfo returnStatement() {
 
 		if (info.er == none || info.er == syntaxError) {
 			t = GetNextToken();
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == SYMBOL && strcmp(t.lx, ";") == 0) {
 				info.er = none;
 			}
@@ -696,6 +1061,11 @@ ParserInfo expression() {
 	info = relationalExpression();
 	while (info.er == none) {
 		Token t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL && (strcmp(t.lx, "&") == 0 || strcmp(t.lx, "|") == 0)) {
 			GetNextToken(); // get peeked
 			info = relationalExpression();
@@ -715,6 +1085,11 @@ ParserInfo relationalExpression() {
 	info = ArithmeticExpression();
 	while (info.er == none) {
 		Token t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL && (strcmp(t.lx, "=") == 0 || strcmp(t.lx, ">") == 0 || strcmp(t.lx, "<") == 0)) {
 			GetNextToken(); // get peeked
 			info = ArithmeticExpression();
@@ -734,6 +1109,11 @@ ParserInfo ArithmeticExpression() {
 	info = term();
 	while (info.er == none) {
 		Token t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL && (strcmp(t.lx, "+") == 0 || strcmp(t.lx, "-") == 0)) {
 			GetNextToken(); // get peeked
 			info = term();
@@ -752,6 +1132,11 @@ ParserInfo term() {
 	info = factor();
 	while (info.er == none) {
 		Token t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL && (strcmp(t.lx, "*") == 0 || strcmp(t.lx, "/") == 0)) {
 			GetNextToken(); // get peeked
 			info = factor();
@@ -767,6 +1152,11 @@ ParserInfo term() {
 ParserInfo factor() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 
 	if (t.tp == SYMBOL && (strcmp(t.lx, "-") == 0 || strcmp(t.lx, "~") == 0)) {
 		GetNextToken(); // get peeked
@@ -783,6 +1173,11 @@ ParserInfo factor() {
 ParserInfo operand() {
 	ParserInfo info;
 	Token t = PeekNextToken();
+	if (t.tp == ERR) {
+		info.tk = t;
+		info.er = lexerErr;
+		return info;
+	}
 	
 	if (t.tp == INT) {
 		GetNextToken(); // get peeked
@@ -792,12 +1187,27 @@ ParserInfo operand() {
 		info.er = none;
 		GetNextToken(); // get peeked
 		t = PeekNextToken();
+		if (t.tp == ERR) {
+			info.tk = t;
+			info.er = lexerErr;
+			return info;
+		}
 		if (t.tp == SYMBOL  && strcmp(t.lx, ".") == 0) {
 			GetNextToken(); // get peeked
 			t = GetNextToken(); // get identifier
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == ID) {
 				info.er = none;
 				t = PeekNextToken();
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 			}
 			else {
 				info.tk = t;
@@ -810,6 +1220,11 @@ ParserInfo operand() {
 			info = expression();
 			if (info.er == none) {
 				t = GetNextToken(); // get closing bracket
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 				if (t.tp == SYMBOL && strcmp(t.lx, "]") == 0) {
 					info.er = none;
 				}
@@ -824,6 +1239,11 @@ ParserInfo operand() {
 			info = expressionList();
 			if (info.er == none) {
 				t = PeekNextToken(); // get closing brace
+				if (t.tp == ERR) {
+					info.tk = t;
+					info.er = lexerErr;
+					return info;
+				}
 				if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
 					GetNextToken(); // get peeked
 					info.er = none;
@@ -840,6 +1260,11 @@ ParserInfo operand() {
 		info = expression();
 		if (info.er == none) {
 			t = GetNextToken(); // get closing brace
+			if (t.tp == ERR) {
+				info.tk = t;
+				info.er = lexerErr;
+				return info;
+			}
 			if (t.tp == SYMBOL && strcmp(t.lx, ")") == 0) {
 				info.er = none;
 			}
